@@ -15,6 +15,14 @@
 		5238066F2571852E00A64D49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5238066D2571852E00A64D49 /* LaunchScreen.storyboard */; };
 		5238067A2571852F00A64D49 /* DexpressGHTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806792571852F00A64D49 /* DexpressGHTests.swift */; };
 		523806852571852F00A64D49 /* DexpressGHUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806842571852F00A64D49 /* DexpressGHUITests.swift */; };
+		52429DF6257274E600735D7D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF5257274E600735D7D /* MainViewController.swift */; };
+		52429DF8257275B400735D7D /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF7257275B400735D7D /* MainPresenter.swift */; };
+		52429DFA2572760200735D7D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF92572760200735D7D /* Router.swift */; };
+		52429DFC2572769200735D7D /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DFB2572769200735D7D /* Interactor.swift */; };
+		52429DFF2572795000735D7D /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DFE2572795000735D7D /* Repositories.swift */; };
+		52429E01257279B000735D7D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E00257279B000735D7D /* Repository.swift */; };
+		52429E0425727F4A00735D7D /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E0325727F4A00735D7D /* URLExtension.swift */; };
+		52429E062572819700735D7D /* MainModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E052572819700735D7D /* MainModuleBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,14 @@
 		523806802571852F00A64D49 /* DexpressGHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DexpressGHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		523806842571852F00A64D49 /* DexpressGHUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexpressGHUITests.swift; sourceTree = "<group>"; };
 		523806862571852F00A64D49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52429DF5257274E600735D7D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		52429DF7257275B400735D7D /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		52429DF92572760200735D7D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		52429DFB2572769200735D7D /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		52429DFE2572795000735D7D /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
+		52429E00257279B000735D7D /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		52429E0325727F4A00735D7D /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		52429E052572819700735D7D /* MainModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModuleBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +115,12 @@
 		523806612571852A00A64D49 /* DexpressGH */ = {
 			isa = PBXGroup;
 			children = (
+				52429E0225727F1000735D7D /* Helpers */,
+				52429DFD2572791800735D7D /* Models */,
+				52429DF32572749A00735D7D /* Modules */,
+				523806662571852A00A64D49 /* ViewController.swift */,
 				523806622571852A00A64D49 /* AppDelegate.swift */,
 				523806642571852A00A64D49 /* SceneDelegate.swift */,
-				523806662571852A00A64D49 /* ViewController.swift */,
 				523806682571852A00A64D49 /* Main.storyboard */,
 				5238066B2571852E00A64D49 /* Assets.xcassets */,
 				5238066D2571852E00A64D49 /* LaunchScreen.storyboard */,
@@ -126,6 +145,43 @@
 				523806862571852F00A64D49 /* Info.plist */,
 			);
 			path = DexpressGHUITests;
+			sourceTree = "<group>";
+		};
+		52429DF32572749A00735D7D /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				52429DF4257274AF00735D7D /* MainModule */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		52429DF4257274AF00735D7D /* MainModule */ = {
+			isa = PBXGroup;
+			children = (
+				52429DF5257274E600735D7D /* MainViewController.swift */,
+				52429DF7257275B400735D7D /* MainPresenter.swift */,
+				52429DF92572760200735D7D /* Router.swift */,
+				52429DFB2572769200735D7D /* Interactor.swift */,
+				52429E052572819700735D7D /* MainModuleBuilder.swift */,
+			);
+			path = MainModule;
+			sourceTree = "<group>";
+		};
+		52429DFD2572791800735D7D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				52429DFE2572795000735D7D /* Repositories.swift */,
+				52429E00257279B000735D7D /* Repository.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		52429E0225727F1000735D7D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				52429E0325727F4A00735D7D /* URLExtension.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +315,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52429DF8257275B400735D7D /* MainPresenter.swift in Sources */,
 				523806672571852A00A64D49 /* ViewController.swift in Sources */,
 				523806632571852A00A64D49 /* AppDelegate.swift in Sources */,
+				52429E062572819700735D7D /* MainModuleBuilder.swift in Sources */,
 				523806652571852A00A64D49 /* SceneDelegate.swift in Sources */,
+				52429DFA2572760200735D7D /* Router.swift in Sources */,
+				52429E0425727F4A00735D7D /* URLExtension.swift in Sources */,
+				52429DFF2572795000735D7D /* Repositories.swift in Sources */,
+				52429DFC2572769200735D7D /* Interactor.swift in Sources */,
+				52429DF6257274E600735D7D /* MainViewController.swift in Sources */,
+				52429E01257279B000735D7D /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
