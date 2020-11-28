@@ -6,16 +6,23 @@
 //  Copyright © 2020 Tracer. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
-protocol MainRouting {
+protocol MainViewRouting {
     
 }
 
-class MainRouter {
+class MainViewRouter {
+    //instatiate the view to be routed
+    var viewController: UIViewController
+    
+    init(view: UIViewController) {
+        self.viewController = view
+    }
 
 }
 
-extension MainRouter: MainRouting {
+extension MainViewRouter: MainViewRouting {
     
 }
