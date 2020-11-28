@@ -9,8 +9,9 @@
 import UIKit
 import Foundation
 
-protocol MainView {
+protocol MainView: class{
     
+    func updateResults(repoList: Repositories) -> ()
 }
 
 class MainViewController: UIViewController {
@@ -25,7 +26,7 @@ class MainViewController: UIViewController {
         // Do additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
-        self.presenter.viewDidLoad() 
+        self.presenter?.viewDidLoad() 
     }
     
 }
@@ -48,5 +49,11 @@ extension MainViewController:  UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MainViewController: MainView{
+    func updateResults(repoList: Repositories) {
+        print("Repo list:\(String(describing: repoList.totalCount))")
+        //The fatched data is received here
+        //update Table View
+        
+    }
     
 }

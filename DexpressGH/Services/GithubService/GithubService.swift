@@ -8,18 +8,18 @@
 
 import Foundation
 
-typealias RepositoriesClosure = () -> (Void)
+typealias RepositoriesClosure = (Repositories) -> (Void)
 
 protocol GitHubApi {
     func fetchAllRepositories( completion: RepositoriesClosure) -> (Void)
 }
 
 class GitHubService {
+    static let shared: GitHubService = GitHubService()
     
 }
 
 extension GitHubService: GitHubApi {
-    
     func fetchAllRepositories(completion: (Repositories) -> (Void)) {
         if let url = Bundle.main.url(forResource: "all-repos", withExtension: "json") {
             do { let data = try Data(contentsOf: url)
@@ -27,8 +27,10 @@ extension GitHubService: GitHubApi {
                 completion(repositories)
                 
             }catch {
-                print("could get data from local json file")
+                print("Could not get data from local json file")
             }
         }
     }
+    
+    
 }

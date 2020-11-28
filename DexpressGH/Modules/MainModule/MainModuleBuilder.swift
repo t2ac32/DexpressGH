@@ -11,14 +11,14 @@ import Foundation
 
 class MainModuleBuilder {
     
-    func build() -> UIViewController {
+    static func build() -> UIViewController {
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let view = storyboard.instantiateViewController(identifier: "MainViewController") as! MainViewController
+        let view = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         
-        let interactor = MainViewInteractor()
+        let interactor = MainViewInteractor(service: GitHubService.shared)
         let router = MainViewRouter(view: view)
-        let presenter = MainPresenter(interactor: interactor, router: router)
+        let presenter = MainPresenter(view: view, interactor: interactor, router: router)
         
         view.presenter = presenter
         return view

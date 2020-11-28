@@ -26,6 +26,7 @@
 		52429E0A2572988800735D7D /* all-repos.json in Resources */ = {isa = PBXBuildFile; fileRef = 52429E092572988800735D7D /* all-repos.json */; };
 		52429E0D257298FA00735D7D /* RepositoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E0C257298FA00735D7D /* RepositoryTableViewCell.swift */; };
 		52429E0F2572999000735D7D /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E0E2572999000735D7D /* GithubService.swift */; };
+		52429E112572A7A600735D7D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E102572A7A600735D7D /* DoubleExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		52429E092572988800735D7D /* all-repos.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "all-repos.json"; sourceTree = "<group>"; };
 		52429E0C257298FA00735D7D /* RepositoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewCell.swift; sourceTree = "<group>"; };
 		52429E0E2572999000735D7D /* GithubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService.swift; sourceTree = "<group>"; };
+		52429E102572A7A600735D7D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				52429E0325727F4A00735D7D /* URLExtension.swift */,
+				52429E102572A7A600735D7D /* DoubleExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				52429DFF2572795000735D7D /* Repositories.swift in Sources */,
 				52429DFC2572769200735D7D /* Interactor.swift in Sources */,
 				52429DF6257274E600735D7D /* MainViewController.swift in Sources */,
+				52429E112572A7A600735D7D /* DoubleExtension.swift in Sources */,
 				52429E01257279B000735D7D /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
