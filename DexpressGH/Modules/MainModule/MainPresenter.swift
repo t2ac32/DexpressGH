@@ -30,11 +30,10 @@ extension MainPresenter: MainPresentation {
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.interactor?.getRepositories(completion: {(results) in
-                if let repositories = results.items {
-                    DispatchQueue.main.async {
-                        self?.view?.updateResults(repoList: repositories)
-                    }
+                DispatchQueue.main.async {
+                    self?.view?.updateResults(repoList: results)
                 }
+            
             })
             
         }
