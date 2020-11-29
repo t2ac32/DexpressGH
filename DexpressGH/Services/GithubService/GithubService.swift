@@ -14,12 +14,18 @@ protocol GitHubApi {
     func fetchAllRepositories( completion: RepositoriesClosure) -> (Void)
 }
 
-class GitHubService {
-    static let shared: GitHubService = GitHubService()
-    
+class GitHubServiceImpl {
+    /*fileprivate let executor: RequestExecutor
+    fileprivate let builder: RequestBuilder
+    */
+    static let shared: GitHubServiceImpl = GitHubServiceImpl()
+    /*init(){
+        builder = RequestBuilder()
+        executor = RequestExecutor(requestBuilder: builder)
+    }*/
 }
 
-extension GitHubService: GitHubApi {
+extension GitHubServiceImpl: GitHubApi {
     func fetchAllRepositories(completion: (Repositories) -> (Void)) {
         if let url = Bundle.main.url(forResource: "all-repos", withExtension: "json") {
             do { let data = try Data(contentsOf: url)

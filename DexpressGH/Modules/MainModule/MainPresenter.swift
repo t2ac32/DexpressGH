@@ -17,8 +17,7 @@ class MainPresenter {
     var interactor: MainViewInteractorInput?
     var router: MainViewRouting?
     
-    init(view: MainView ,interactor: MainViewInteractorInput, router: MainViewRouting) {
-        self.view = view
+    init(interactor: MainViewInteractorInput, router: MainViewRouting) {
         self.interactor = interactor
         self.router = router
     }

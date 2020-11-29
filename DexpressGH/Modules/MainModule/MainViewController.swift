@@ -10,35 +10,57 @@ import UIKit
 import Foundation
 
 protocol MainView: class{
-    
     func updateResults(repoList: [RepositoryItemViewModel]) -> ()
 }
 
 class MainViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    // Reference to presenter
+    private var presenter: MainPresentation
+    private var tableView: UITableView = { return UITableView() }()
     
     private static let repositoryCellID = "repoItemCell"
     
     var datasource: [RepositoryItemViewModel] = [] {
-        didSet {
-            self.tableView.reloadData()
-        }
+        didSet { self.tableView.reloadData() }
     }
     
-    // Reference to presenter
-    var presenter: MainPresentation!
+    init(presenter: MainPresentation) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+        view.addSubview(tableView)
+        configTableView()
         // Do additional setup after loading the view.
-        self.presenter?.viewDidLoad()
-        //self.tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
+        presenter.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
     }
     
+    func setupTableView() {
+        tableView.backgroundColor = .white
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
+    }
+    
+    func configTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    }
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {

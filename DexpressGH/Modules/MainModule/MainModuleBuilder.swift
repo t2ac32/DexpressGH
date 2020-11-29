@@ -16,11 +16,15 @@ class MainModuleBuilder {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let view = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         
-        let interactor = MainViewInteractor(service: GitHubService.shared)
         let router = MainViewRouter(view: view)
-        let presenter = MainPresenter(view: view, interactor: interactor, router: router)
+        let interactor = MainViewInteractor(service: GitHubServiceImpl.shared)
+        let presenter = MainPresenter(interactor: interactor, router: router)
+        let controller = MainViewController(presenter: presenter)
         
-        view.presenter = presenter
-        return view
+        
+        
+        presenter.view = controller
+        return controller
     }
 }
+

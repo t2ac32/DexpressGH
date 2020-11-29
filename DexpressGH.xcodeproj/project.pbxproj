@@ -27,6 +27,12 @@
 		52429E112572A7A600735D7D /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E102572A7A600735D7D /* DoubleExtension.swift */; };
 		52429E142572D21300735D7D /* RepoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429E122572D21300735D7D /* RepoItemCell.swift */; };
 		52429E152572D21300735D7D /* RepoItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52429E132572D21300735D7D /* RepoItemCell.xib */; };
+		5260DC882573F9D90015C128 /* ApplicationRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC872573F9D90015C128 /* ApplicationRoot.swift */; };
+		5260DC8D2573FCCD0015C128 /* ServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC8C2573FCCD0015C128 /* ServicesAssembly.swift */; };
+		5260DC8F2573FCE20015C128 /* ServicesAssemblyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC8E2573FCE20015C128 /* ServicesAssemblyImpl.swift */; };
+		5260DC912573FCFC0015C128 /* ServicesAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC902573FCFC0015C128 /* ServicesAssemblyProtocol.swift */; };
+		5260DC93257401440015C128 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC92257401440015C128 /* RequestBuilder.swift */; };
+		5260DC95257402490015C128 /* RequestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC94257402490015C128 /* RequestExecutor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +79,12 @@
 		52429E102572A7A600735D7D /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		52429E122572D21300735D7D /* RepoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoItemCell.swift; sourceTree = "<group>"; };
 		52429E132572D21300735D7D /* RepoItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepoItemCell.xib; sourceTree = "<group>"; };
+		5260DC872573F9D90015C128 /* ApplicationRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationRoot.swift; sourceTree = "<group>"; };
+		5260DC8C2573FCCD0015C128 /* ServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssembly.swift; sourceTree = "<group>"; };
+		5260DC8E2573FCE20015C128 /* ServicesAssemblyImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssemblyImpl.swift; sourceTree = "<group>"; };
+		5260DC902573FCFC0015C128 /* ServicesAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssemblyProtocol.swift; sourceTree = "<group>"; };
+		5260DC92257401440015C128 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		5260DC94257402490015C128 /* RequestExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +135,7 @@
 		523806612571852A00A64D49 /* DexpressGH */ = {
 			isa = PBXGroup;
 			children = (
+				5260DC852573F9900015C128 /* Presentation */,
 				52429E072572967B00735D7D /* Services */,
 				52429E0225727F1000735D7D /* Helpers */,
 				52429DFD2572791800735D7D /* Models */,
@@ -199,6 +212,9 @@
 			isa = PBXGroup;
 			children = (
 				52429E082572968D00735D7D /* GithubService */,
+				5260DC8C2573FCCD0015C128 /* ServicesAssembly.swift */,
+				5260DC8E2573FCE20015C128 /* ServicesAssemblyImpl.swift */,
+				5260DC902573FCFC0015C128 /* ServicesAssemblyProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -207,6 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				52429E0E2572999000735D7D /* GithubService.swift */,
+				5260DC92257401440015C128 /* RequestBuilder.swift */,
+				5260DC94257402490015C128 /* RequestExecutor.swift */,
 			);
 			path = GithubService;
 			sourceTree = "<group>";
@@ -218,6 +236,22 @@
 				52429E132572D21300735D7D /* RepoItemCell.xib */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		5260DC852573F9900015C128 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				5260DC862573F9BF0015C128 /* ApplicationRoot */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		5260DC862573F9BF0015C128 /* ApplicationRoot */ = {
+			isa = PBXGroup;
+			children = (
+				5260DC872573F9D90015C128 /* ApplicationRoot.swift */,
+			);
+			path = ApplicationRoot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,17 +388,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				52429DF8257275B400735D7D /* MainPresenter.swift in Sources */,
+				5260DC912573FCFC0015C128 /* ServicesAssemblyProtocol.swift in Sources */,
 				52429E142572D21300735D7D /* RepoItemCell.swift in Sources */,
+				5260DC93257401440015C128 /* RequestBuilder.swift in Sources */,
 				52429E0F2572999000735D7D /* GithubService.swift in Sources */,
 				523806632571852A00A64D49 /* AppDelegate.swift in Sources */,
 				52429E062572819700735D7D /* MainModuleBuilder.swift in Sources */,
+				5260DC8D2573FCCD0015C128 /* ServicesAssembly.swift in Sources */,
 				523806652571852A00A64D49 /* SceneDelegate.swift in Sources */,
 				52429DFA2572760200735D7D /* Router.swift in Sources */,
+				5260DC8F2573FCE20015C128 /* ServicesAssemblyImpl.swift in Sources */,
 				52429E0425727F4A00735D7D /* URLExtension.swift in Sources */,
 				52429DFF2572795000735D7D /* Repositories.swift in Sources */,
 				52429DFC2572769200735D7D /* Interactor.swift in Sources */,
 				52429DF6257274E600735D7D /* MainViewController.swift in Sources */,
 				52429E112572A7A600735D7D /* DoubleExtension.swift in Sources */,
+				5260DC882573F9D90015C128 /* ApplicationRoot.swift in Sources */,
+				5260DC95257402490015C128 /* RequestExecutor.swift in Sources */,
 				52429E01257279B000735D7D /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
