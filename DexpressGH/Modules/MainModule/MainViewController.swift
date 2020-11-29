@@ -50,7 +50,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         let repoItem = self.datasource[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "repoItemCell", for: indexPath) as! RepoItemCell
 
-        //cell.configure(usingModel: repoItem)
+        cell.configure(usingModel: repoItem)
         return cell
     }
 
@@ -61,7 +61,7 @@ extension MainViewController: MainView {
     
     func updateResults(repoList: [RepositoryItemViewModel]) {
         print("Repo list size: \(repoList.count)")
-
+        print(repoList)
         //The fatched data is received here
         //update Table View
         self.datasource = repoList

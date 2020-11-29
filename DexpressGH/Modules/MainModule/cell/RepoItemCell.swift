@@ -29,14 +29,14 @@ class RepoItemCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(usingModel repoModel: Repository) -> Void {
+    func configure(usingModel repoModel: RepositoryItemViewModel) -> Void {
         
         //TODO: ADD a download method for url avatar image
-        self.titleLabel.text = repoModel.name
-        self.descriptionLabel.text = repoModel.itemDescription
-        self.forksLabel.text = Double(repoModel.forks ?? 0).unitFormatted()
-        self.watchersLabel.text = Double(repoModel.watchersCount ?? 0).unitFormatted()
-        self.followersLabel.text = Double(repoModel.stargazersCount ?? 0).unitFormatted()
+        self.titleLabel.text = repoModel.title
+        self.descriptionLabel.text = repoModel.description
+        self.forksLabel.text = repoModel.forks
+        self.watchersLabel.text = repoModel.watchers
+        self.followersLabel.text = repoModel.followers
         
     }
 }
