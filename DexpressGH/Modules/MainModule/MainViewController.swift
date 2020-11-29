@@ -11,7 +11,7 @@ import Foundation
 
 protocol MainView: class{
     
-    func updateResults(repoList: Repositories) -> ()
+    func updateResults(repoList: [RepositoryItemViewModel]) -> ()
 }
 
 class MainViewController: UIViewController {
@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
     
     private static let repositoryCellID = "repoItemCell"
     
-    var datasource: [Repository] = [] {
+    var datasource: [RepositoryItemViewModel] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -43,33 +43,30 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource.count
+        return self.datasource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let repoItem = datasource[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainViewController.repositoryCellID, for: indexPath) as! RepoItemCell
+        let repoItem = self.datasource[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "repoItemCell", for: indexPath) as! RepoItemCell
 
-        cell.configure(usingModel: repoItem)
+        //cell.configure(usingModel: repoItem)
         return cell
     }
-    
+
     
 }
 
-extension MainViewController: MainView{
-    func updateResults(repoList: Repositories) {
-        if let total = repoList.items?.count{
-                print("Repo list size: \(total)")
-            if total > 0 {
-                if let items = repoList.items{
-                    self.datasource = items
-                        self.tableView.reloadData()
-                }
-            }
-        }
+extension MainViewController: MainView {
+    
+    func updateResults(repoList: [RepositoryItemViewModel]) {
+        print("Repo list size: \(repoList.count)")
+
         //The fatched data is received here
         //update Table View
+        self.datasource = repoList
+        
+        
         
     }
     
