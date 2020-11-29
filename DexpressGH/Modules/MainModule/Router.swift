@@ -15,11 +15,9 @@ protocol MainViewRouting {
 
 class MainViewRouter {
     //instatiate the view to be routed
-    var viewController: UIViewController
+    weak var view: MainView?
     
-    init(view: UIViewController) {
-        self.viewController = view
-    }
+    
 
 }
 

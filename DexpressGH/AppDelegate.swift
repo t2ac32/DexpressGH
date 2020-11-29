@@ -16,14 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //Setup Services
-        //ServicesAssembly.setup(application:application)
         // Override point for customization after application launch.
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let initialViewController = MainModuleBuilder.build()
-        window?.rootViewController = initialViewController
-        window?.makeKeyAndVisible()
-    
         return true
     }
 
