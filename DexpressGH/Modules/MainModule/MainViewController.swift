@@ -48,7 +48,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let repoItem = self.datasource[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "repoItemCell", for: indexPath) as! RepoItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MainViewController.repositoryCellID, for: indexPath) as! RepoItemCell
 
         cell.configure(usingModel: repoItem)
         return cell
