@@ -33,7 +33,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do additional setup after loading the view.
         self.presenter?.viewDidLoad()
-        self.tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
+        //self.tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
@@ -54,9 +54,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 229
-    }
+    
 }
 
 extension MainViewController: MainView{
