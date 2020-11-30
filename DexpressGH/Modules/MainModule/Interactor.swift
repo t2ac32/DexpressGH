@@ -27,9 +27,15 @@ extension MainViewInteractor: MainViewInteractorInput {
     
     func getRepositories(completion: @escaping(Repositories) -> (Void)) {
         
+        
         self.service.fetchTracerRepositories { results in
             completion(results)
         }
+        
+        self.service.fetchRepositoriesFromJson { (results) -> (Void) in
+            completion(results)
+        }
+        
     }
     
     

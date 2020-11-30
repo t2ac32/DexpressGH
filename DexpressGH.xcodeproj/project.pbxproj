@@ -31,9 +31,10 @@
 		5260DC8D2573FCCD0015C128 /* ServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC8C2573FCCD0015C128 /* ServicesAssembly.swift */; };
 		5260DC8F2573FCE20015C128 /* ServicesAssemblyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC8E2573FCE20015C128 /* ServicesAssemblyImpl.swift */; };
 		5260DC912573FCFC0015C128 /* ServicesAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC902573FCFC0015C128 /* ServicesAssemblyProtocol.swift */; };
-		5260DC93257401440015C128 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC92257401440015C128 /* RequestBuilder.swift */; };
-		5260DC95257402490015C128 /* RequestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260DC94257402490015C128 /* RequestExecutor.swift */; };
 		5298B46D25751DE200A5C265 /* JSONHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5298B46C25751DE200A5C265 /* JSONHelpers.swift */; };
+		52FA57DF25753E8500963BE9 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA57DE25753E8500963BE9 /* Enums.swift */; };
+		52FA57E125753F2800963BE9 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA57E025753F2800963BE9 /* License.swift */; };
+		52FA57E525753F7D00963BE9 /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA57E425753F7D00963BE9 /* Owner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,9 +85,10 @@
 		5260DC8C2573FCCD0015C128 /* ServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssembly.swift; sourceTree = "<group>"; };
 		5260DC8E2573FCE20015C128 /* ServicesAssemblyImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssemblyImpl.swift; sourceTree = "<group>"; };
 		5260DC902573FCFC0015C128 /* ServicesAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesAssemblyProtocol.swift; sourceTree = "<group>"; };
-		5260DC92257401440015C128 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
-		5260DC94257402490015C128 /* RequestExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutor.swift; sourceTree = "<group>"; };
 		5298B46C25751DE200A5C265 /* JSONHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHelpers.swift; sourceTree = "<group>"; };
+		52FA57DE25753E8500963BE9 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		52FA57E025753F2800963BE9 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
+		52FA57E425753F7D00963BE9 /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,10 +140,10 @@
 			isa = PBXGroup;
 			children = (
 				5260DC852573F9900015C128 /* Presentation */,
-				52429E072572967B00735D7D /* Services */,
 				52429E0225727F1000735D7D /* Helpers */,
 				52429DFD2572791800735D7D /* Models */,
 				52429DF32572749A00735D7D /* Modules */,
+				52429E072572967B00735D7D /* Services */,
 				523806622571852A00A64D49 /* AppDelegate.swift */,
 				523806642571852A00A64D49 /* SceneDelegate.swift */,
 				523806682571852A00A64D49 /* Main.storyboard */,
@@ -197,6 +199,8 @@
 			children = (
 				52429DFE2572795000735D7D /* Repositories.swift */,
 				52429E00257279B000735D7D /* Repository.swift */,
+				52FA57E025753F2800963BE9 /* License.swift */,
+				52FA57E425753F7D00963BE9 /* Owner.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,6 +211,7 @@
 				52429E0325727F4A00735D7D /* URLExtension.swift */,
 				52429E102572A7A600735D7D /* DoubleExtension.swift */,
 				5298B46C25751DE200A5C265 /* JSONHelpers.swift */,
+				52FA57DE25753E8500963BE9 /* Enums.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -226,8 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				52429E0E2572999000735D7D /* GithubService.swift */,
-				5260DC92257401440015C128 /* RequestBuilder.swift */,
-				5260DC94257402490015C128 /* RequestExecutor.swift */,
 			);
 			path = GithubService;
 			sourceTree = "<group>";
@@ -393,11 +396,13 @@
 				52429DF8257275B400735D7D /* MainPresenter.swift in Sources */,
 				5260DC912573FCFC0015C128 /* ServicesAssemblyProtocol.swift in Sources */,
 				52429E142572D21300735D7D /* RepoItemCell.swift in Sources */,
-				5260DC93257401440015C128 /* RequestBuilder.swift in Sources */,
+				52FA57DF25753E8500963BE9 /* Enums.swift in Sources */,
 				52429E0F2572999000735D7D /* GithubService.swift in Sources */,
+				52FA57E525753F7D00963BE9 /* Owner.swift in Sources */,
 				523806632571852A00A64D49 /* AppDelegate.swift in Sources */,
 				52429E062572819700735D7D /* MainModuleBuilder.swift in Sources */,
 				5260DC8D2573FCCD0015C128 /* ServicesAssembly.swift in Sources */,
+				52FA57E125753F2800963BE9 /* License.swift in Sources */,
 				523806652571852A00A64D49 /* SceneDelegate.swift in Sources */,
 				5298B46D25751DE200A5C265 /* JSONHelpers.swift in Sources */,
 				52429DFA2572760200735D7D /* Router.swift in Sources */,
@@ -408,7 +413,6 @@
 				52429DF6257274E600735D7D /* MainViewController.swift in Sources */,
 				52429E112572A7A600735D7D /* DoubleExtension.swift in Sources */,
 				5260DC882573F9D90015C128 /* ApplicationRoot.swift in Sources */,
-				5260DC95257402490015C128 /* RequestExecutor.swift in Sources */,
 				52429E01257279B000735D7D /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

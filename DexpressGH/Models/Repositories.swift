@@ -1,7 +1,7 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
 //   let repositories = try Repositories(json)
-
 //
 // To read values from URLs:
 //
@@ -21,8 +21,8 @@ struct Repositories: Codable {
     let items: [Repository]?
 
     enum CodingKeys: String, CodingKey {
-        case totalCount
-        case incompleteResults
+        case totalCount = "total_count"
+        case incompleteResults = "incomplete_results"
         case items
     }
 }

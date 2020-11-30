@@ -52,7 +52,7 @@ struct RepositoryItemViewModel {
     init(using repoModel: Repository) {
         self.title = repoModel.name ?? ""
         self.avatar_url = repoModel.owner?.avatarURL ?? "Na"
-        self.description = repoModel.itemDescription ?? ""
+        self.description = repoModel.itemDescription ?? "No description found"
         self.followers = Double(repoModel.stargazersCount ?? 0).unitFormatted()
         self.forks =  Double(repoModel.forks ?? 0).unitFormatted()
         self.watchers = Double(repoModel.watchersCount ?? 0).unitFormatted()

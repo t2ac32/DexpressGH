@@ -11,7 +11,7 @@ import Foundation
 typealias RepositoriesClosure = (Repositories) -> (Void)
 
 protocol GitHubApi {
-    func fetchAllRepositories( completion: RepositoriesClosure) -> (Void)
+    func fetchRepositoriesFromJson( completion: @escaping(RepositoriesClosure)) -> (Void)
     func fetchTracerRepositories( completion: @escaping(RepositoriesClosure)) -> (Void)
 
 }
@@ -25,13 +25,15 @@ class GitHubServiceImpl {
 
 extension GitHubServiceImpl: GitHubApi {
     
+    
+    
     func requestUrl(path: String) -> URL {
         return URL(string:  endpoint + path )!
     }
     
     
     func get_tracer_repos() ->URL {
-        return getReposUrl(from: "t2ac32")
+        return getReposUrl(from: "insidegui")
     }
     
     func getReposUrl(from user:String) -> URL {
@@ -44,17 +46,20 @@ extension GitHubServiceImpl: GitHubApi {
     func fetchTracerRepositories(completion: @escaping(Repositories) -> (Void)){
         let url = get_tracer_repos()
         print("URL Path: ",url.absoluteString)
-        let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
-            if let repositories = repositories {
+        let task = URLSession.shared.repositoriesTask(with: url) { data, response, error in
+            if let repositories = data {
                 completion(repositories)
             }
+            if let err = error {
+                print(err)
+                return
+            }
         }
-       task.resume()
-
-        
+        task.resume()
     }
     
-    func fetchAllRepositories(completion: (Repositories) -> (Void)) {
+    
+    func fetchRepositoriesFromJson(completion: @escaping(Repositories) -> (Void)) {
         if let url = Bundle.main.url(forResource: "all-repos", withExtension: "json") {
             do { let data = try Data(contentsOf: url)
                 let repositories = try JSONDecoder().decode(Repositories.self, from: data)
@@ -65,14 +70,5 @@ extension GitHubServiceImpl: GitHubApi {
             }
         }
     }
-    
-    // To parse the JSON, add this file to your project and do:
-    //
-    //   let repositories = try? newJSONDecoder().decode(Repositories.self, from: jsonData)
-
-    //
-    // To read values from URLs:
-    //
-    
     
 }
