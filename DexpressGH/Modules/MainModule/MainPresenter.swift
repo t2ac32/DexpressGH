@@ -60,7 +60,7 @@ struct RepositoryItemViewModel {
         self.description = repoModel.itemDescription ?? "No description found"
         self.followers = Double(repoModel.stargazersCount ?? 0).unitFormatted()
         self.forks =  Double(repoModel.forks ?? 0).unitFormatted()
-        self.watchers = Double(repoModel.watchersCount ?? 0).unitFormatted()
+        self.watchers = Double(repoModel.watchers ?? 0).unitFormatted()
         
         
     }
