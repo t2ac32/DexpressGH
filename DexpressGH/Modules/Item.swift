@@ -1,12 +1,12 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let repository = try Repository(json)
+//   let item = try Item(json)
 //
 // To read values from URLs:
 //
-//   let task = URLSession.shared.repositoryTask(with: url) { repository, response, error in
-//     if let repository = repository {
+//   let task = URLSession.shared.itemTask(with: url) { item, response, error in
+//     if let item = item {
 //       ...
 //     }
 //   }
@@ -14,14 +14,14 @@
 
 import Foundation
 
-// MARK: - Repository
-struct Repository: Codable {
+// MARK: - Item
+struct Item: Codable {
     let id: Int?
     let nodeID, name, fullName: String?
-    let repositoryPrivate: Bool?
+    let itemPrivate: Bool?
     let owner: Owner?
     let htmlURL: String?
-    let repositoryDescription: String?
+    let itemDescription: String?
     let fork: Bool?
     let url, forksURL: String?
     let keysURL, collaboratorsURL: String?
@@ -46,7 +46,7 @@ struct Repository: Codable {
     let gitURL, sshURL: String?
     let cloneURL: String?
     let svnURL: String?
-    let homepage: JSONNull?
+    let homepage: String?
     let size, stargazersCount, watchersCount: Int?
     let language: String?
     let hasIssues, hasProjects, hasDownloads, hasWiki: Bool?
@@ -65,10 +65,10 @@ struct Repository: Codable {
         case nodeID
         case name
         case fullName
-        case repositoryPrivate
+        case itemPrivate
         case owner
         case htmlURL
-        case repositoryDescription
+        case itemDescription
         case fork, url
         case forksURL
         case keysURL
@@ -134,11 +134,11 @@ struct Repository: Codable {
     }
 }
 
-// MARK: Repository convenience initializers and mutators
+// MARK: Item convenience initializers and mutators
 
-extension Repository {
+extension Item {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(Repository.self, from: data)
+        self = try newJSONDecoder().decode(Item.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -157,10 +157,10 @@ extension Repository {
         nodeID: String?? = nil,
         name: String?? = nil,
         fullName: String?? = nil,
-        repositoryPrivate: Bool?? = nil,
+        itemPrivate: Bool?? = nil,
         owner: Owner?? = nil,
         htmlURL: String?? = nil,
-        repositoryDescription: String?? = nil,
+        itemDescription: String?? = nil,
         fork: Bool?? = nil,
         url: String?? = nil,
         forksURL: String?? = nil,
@@ -206,7 +206,7 @@ extension Repository {
         sshURL: String?? = nil,
         cloneURL: String?? = nil,
         svnURL: String?? = nil,
-        homepage: JSONNull?? = nil,
+        homepage: String?? = nil,
         size: Int?? = nil,
         stargazersCount: Int?? = nil,
         watchersCount: Int?? = nil,
@@ -227,16 +227,16 @@ extension Repository {
         watchers: Int?? = nil,
         defaultBranch: DefaultBranch?? = nil,
         score: Int?? = nil
-    ) -> Repository {
-        return Repository(
+    ) -> Item {
+        return Item(
             id: id ?? self.id,
             nodeID: nodeID ?? self.nodeID,
             name: name ?? self.name,
             fullName: fullName ?? self.fullName,
-            repositoryPrivate: repositoryPrivate ?? self.repositoryPrivate,
+            itemPrivate: itemPrivate ?? self.itemPrivate,
             owner: owner ?? self.owner,
             htmlURL: htmlURL ?? self.htmlURL,
-            repositoryDescription: repositoryDescription ?? self.repositoryDescription,
+            itemDescription: itemDescription ?? self.itemDescription,
             fork: fork ?? self.fork,
             url: url ?? self.url,
             forksURL: forksURL ?? self.forksURL,

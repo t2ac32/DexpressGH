@@ -18,12 +18,12 @@ import Foundation
 struct Repositories: Codable {
     let totalCount: Int?
     let incompleteResults: Bool?
-    let repositories: [Repository]?
+    let items: [Item]?
 
     enum CodingKeys: String, CodingKey {
         case totalCount
         case incompleteResults
-        case repositories
+        case items
     }
 }
 
@@ -48,12 +48,12 @@ extension Repositories {
     func with(
         totalCount: Int?? = nil,
         incompleteResults: Bool?? = nil,
-        repositories: [Repository]?? = nil
+        items: [Item]?? = nil
     ) -> Repositories {
         return Repositories(
             totalCount: totalCount ?? self.totalCount,
             incompleteResults: incompleteResults ?? self.incompleteResults,
-            repositories: repositories ?? self.repositories
+            items: items ?? self.items
         )
     }
 

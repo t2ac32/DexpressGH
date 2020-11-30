@@ -21,6 +21,11 @@ class GitHubServiceImpl {
     
     static let shared: GitHubServiceImpl = GitHubServiceImpl()
     
+    
+}
+
+extension GitHubServiceImpl: GitHubApi {
+    
     func requestUrl(path: String) -> URL {
         return URL(string:  endpoint + path )!
     }
@@ -31,32 +36,26 @@ class GitHubServiceImpl {
         return url
     }
     
-}
-
-extension GitHubServiceImpl: GitHubApi {
-    
-    func get_tracer_repos() ->URL {
+    func get_tracer_repos() -> URL {
         return getReposUrl(from: "t2ac32")
     }
     
-    func fetchTracerRepositories(completion: @escaping(Repositories) -> (Void)){
+    func fetchTracerRepositories(completion: @escaping(Repositories) -> Void){
         let url = get_tracer_repos()
         print("URL Path: ", url.absoluteString)
         
-        let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
-            if let repositories = repositories {
-                guard let repos_count = repositories.repositories?.count else {
-                    print("couldn't get count")
-                    return
-                }
-                print(repos_count)
-            }
+        do { let data = try Data(contentsOf: url)
+            let repositories = try JSONDecoder().decode(Repositories.self, from: data)
+            completion(repositories)
+            
+        }catch {
+            print("Could not get data from local json file")
         }
-        task.resume()
+        
     }
     
     
-    func fetchRepositoriesFromJson(completion: @escaping(Repositories) -> (Void)) {
+    func fetchRepositoriesFromJson(completion: @escaping(Repositories) -> Void) {
         if let url = Bundle.main.url(forResource: "all-repos", withExtension: "json") {
             do { let data = try Data(contentsOf: url)
                 let repositories = try JSONDecoder().decode(Repositories.self, from: data)

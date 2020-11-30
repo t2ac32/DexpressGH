@@ -29,7 +29,8 @@ extension MainPresenter: MainPresentation {
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.interactor?.getRepositories(completion: {(results) in
-                if let items = results.repositories {
+                if let items = results.items
+                {
                     if items.count > 0 {
                         let reposList = items.compactMap({ RepositoryItemViewModel(using: $0) })
                             
@@ -53,10 +54,10 @@ struct RepositoryItemViewModel {
     let forks: String
     let watchers: String
     
-    init(using repoModel: Repository) {
+    init(using repoModel: Item) {
         self.title = repoModel.name ?? ""
         self.avatar_url = repoModel.owner?.avatarURL ?? "Na"
-        self.description = repoModel.repositoryDescription ?? "No description found"
+        self.description = repoModel.itemDescription ?? "No description found"
         self.followers = Double(repoModel.stargazersCount ?? 0).unitFormatted()
         self.forks =  Double(repoModel.forks ?? 0).unitFormatted()
         self.watchers = Double(repoModel.watchersCount ?? 0).unitFormatted()
