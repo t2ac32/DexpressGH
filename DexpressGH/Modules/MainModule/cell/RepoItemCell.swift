@@ -31,6 +31,8 @@ class RepoItemCell: UITableViewCell {
     
     func configure(usingModel repoModel: RepositoryItemViewModel) -> Void {
         
+        configAvatar(imageView: avatarImageView)
+        
         //TODO: ADD a download method for url avatar image
         self.titleLabel.text = repoModel.title
         self.descriptionLabel.text = repoModel.description
@@ -38,5 +40,10 @@ class RepoItemCell: UITableViewCell {
         self.watchersLabel.text = repoModel.watchers
         self.followersLabel.text = repoModel.followers
         
+    }
+    
+    func configAvatar(imageView: UIImageView) {
+        self.avatarImageView.layer.cornerRadius = 25
+        self.avatarImageView.layer.masksToBounds = true
     }
 }

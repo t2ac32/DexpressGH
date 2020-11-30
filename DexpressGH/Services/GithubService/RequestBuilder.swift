@@ -8,16 +8,20 @@
 
 import Foundation
 
+//TODO: d\
 class RequestBuilder {
-    let endpoint: String = ""
+    let endpoint: String = "https://api.github.com/search/repositories?q="
     
-    func requesetUrl(path: String) -> URL {
-        return URL(string:  endpoint + path )!
+    
+    func repos(with keywords:[String], with qualifier:String, order:String = "desc"){
+        /*var path: String = ""
+        
+        for key in keywords {
+                
+        }
+        path += "&" + order
+        let url = requestUrl(path: <#T##String#>)
+        */
+        
     }
-  
-    //TODO: implement repos from username
-    /*
-    func repos(for userName: String) -> Repositories {
-    }
-    */
 }

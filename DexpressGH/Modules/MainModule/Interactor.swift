@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: Manipulates data and use cases, Handles input from presenter and sends it back again to presenter and then to viewcontroller.
 protocol MainViewInteractorInput {
-    func getRepositories(completion: RepositoriesClosure) -> (Void)
+    func getRepositories(completion: @escaping(RepositoriesClosure)) -> (Void)
 }
 
 
@@ -25,9 +25,12 @@ class MainViewInteractor {
 
 extension MainViewInteractor: MainViewInteractorInput {
     
-    func getRepositories(completion: (Repositories) -> (Void)) {
-        self.service.fetchAllRepositories { (results) in
+    func getRepositories(completion: @escaping(Repositories) -> (Void)) {
+        
+        self.service.fetchTracerRepositories { results in
             completion(results)
         }
     }
+    
+    
 }
