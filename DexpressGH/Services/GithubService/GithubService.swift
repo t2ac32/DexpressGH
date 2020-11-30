@@ -21,38 +21,35 @@ class GitHubServiceImpl {
     
     static let shared: GitHubServiceImpl = GitHubServiceImpl()
     
-}
-
-extension GitHubServiceImpl: GitHubApi {
-    
-    
-    
     func requestUrl(path: String) -> URL {
         return URL(string:  endpoint + path )!
-    }
-    
-    
-    func get_tracer_repos() ->URL {
-        return getReposUrl(from: "insidegui")
     }
     
     func getReposUrl(from user:String) -> URL {
         let path = "user:\(user)"
         let url = requestUrl(path: path)
         return url
-        
+    }
+    
+}
+
+extension GitHubServiceImpl: GitHubApi {
+    
+    func get_tracer_repos() ->URL {
+        return getReposUrl(from: "t2ac32")
     }
     
     func fetchTracerRepositories(completion: @escaping(Repositories) -> (Void)){
         let url = get_tracer_repos()
-        print("URL Path: ",url.absoluteString)
-        let task = URLSession.shared.repositoriesTask(with: url) { data, response, error in
-            if let repositories = data {
-                completion(repositories)
-            }
-            if let err = error {
-                print(err)
-                return
+        print("URL Path: ", url.absoluteString)
+        
+        let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
+            if let repositories = repositories {
+                guard let repos_count = repositories.repositories?.count else {
+                    print("couldn't get count")
+                    return
+                }
+                print(repos_count)
             }
         }
         task.resume()

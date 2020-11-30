@@ -1,13 +1,4 @@
-//
-//  License.swift
-//  DexpressGH
-//
-//  Created by Tracer on 30/11/20.
-//  Copyright © 2020 Tracer. All rights reserved.
-//
-
-import Foundation
-
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
 //   let license = try License(json)
@@ -31,9 +22,9 @@ struct License: Codable {
 
     enum CodingKeys: String, CodingKey {
         case key, name
-        case spdxID = "spdx_id"
+        case spdxID
         case url
-        case nodeID = "node_id"
+        case nodeID
     }
 }
 

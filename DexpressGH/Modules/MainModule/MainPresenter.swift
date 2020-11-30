@@ -29,11 +29,15 @@ extension MainPresenter: MainPresentation {
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.interactor?.getRepositories(completion: {(results) in
-                if let items = results.items {
-                    let reposList = items.compactMap({ RepositoryItemViewModel(using: $0) })
-                        
-                    DispatchQueue.main.async {
-                        self?.view?.updateResults(repoList: reposList)
+                if let items = results.repositories {
+                    if items.count > 0 {
+                        let reposList = items.compactMap({ RepositoryItemViewModel(using: $0) })
+                            
+                        DispatchQueue.main.async {
+                            self?.view?.updateResults(repoList: reposList)
+                        }
+                    }else {
+                        print("No repos found to be loaded")
                     }
                 }
             })
@@ -52,7 +56,7 @@ struct RepositoryItemViewModel {
     init(using repoModel: Repository) {
         self.title = repoModel.name ?? ""
         self.avatar_url = repoModel.owner?.avatarURL ?? "Na"
-        self.description = repoModel.itemDescription ?? "No description found"
+        self.description = repoModel.repositoryDescription ?? "No description found"
         self.followers = Double(repoModel.stargazersCount ?? 0).unitFormatted()
         self.forks =  Double(repoModel.forks ?? 0).unitFormatted()
         self.watchers = Double(repoModel.watchersCount ?? 0).unitFormatted()

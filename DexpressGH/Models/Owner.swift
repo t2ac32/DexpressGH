@@ -1,12 +1,3 @@
-//
-//  Owner.swift
-//  DexpressGH
-//
-//  Created by Tracer on 30/11/20.
-//  Copyright © 2020 Tracer. All rights reserved.
-//
-import Foundation
-
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
@@ -21,6 +12,7 @@ import Foundation
 //   }
 //   task.resume()
 
+import Foundation
 
 // MARK: - Owner
 struct Owner: Codable {
@@ -41,22 +33,22 @@ struct Owner: Codable {
 
     enum CodingKeys: String, CodingKey {
         case login, id
-        case nodeID = "node_id"
-        case avatarURL = "avatar_url"
-        case gravatarID = "gravatar_id"
+        case nodeID
+        case avatarURL
+        case gravatarID
         case url
-        case htmlURL = "html_url"
-        case followersURL = "followers_url"
-        case followingURL = "following_url"
-        case gistsURL = "gists_url"
-        case starredURL = "starred_url"
-        case subscriptionsURL = "subscriptions_url"
-        case organizationsURL = "organizations_url"
-        case reposURL = "repos_url"
-        case eventsURL = "events_url"
-        case receivedEventsURL = "received_events_url"
+        case htmlURL
+        case followersURL
+        case followingURL
+        case gistsURL
+        case starredURL
+        case subscriptionsURL
+        case organizationsURL
+        case reposURL
+        case eventsURL
+        case receivedEventsURL
         case type
-        case siteAdmin = "site_admin"
+        case siteAdmin
     }
 }
 

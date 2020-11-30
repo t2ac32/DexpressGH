@@ -1,32 +1,27 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let repository = try Repository(json)
 //
 // To read values from URLs:
 //
-//   let task = URLSession.shared.itemTask(with: url) { item, response, error in
-//     if let item = item {
+//   let task = URLSession.shared.repositoryTask(with: url) { repository, response, error in
+//     if let repository = repository {
 //       ...
 //     }
 //   }
 //   task.resume()
 
 import Foundation
-//
-// To read values from URLs:
-//
-//   let task = URLSession.shared.itemTask(with: url) { item, response, error in
-//     if let item = item {
-//       ...
-//     }
-//   }
-//   task.resume()
 
-// MARK: - Repository item model
+// MARK: - Repository
 struct Repository: Codable {
     let id: Int?
     let nodeID, name, fullName: String?
-    let itemPrivate: Bool?
+    let repositoryPrivate: Bool?
     let owner: Owner?
     let htmlURL: String?
-    let itemDescription: String?
+    let repositoryDescription: String?
     let fork: Bool?
     let url, forksURL: String?
     let keysURL, collaboratorsURL: String?
@@ -70,10 +65,10 @@ struct Repository: Codable {
         case nodeID
         case name
         case fullName
-        case itemPrivate
+        case repositoryPrivate
         case owner
         case htmlURL
-        case itemDescription
+        case repositoryDescription
         case fork, url
         case forksURL
         case keysURL
@@ -139,7 +134,7 @@ struct Repository: Codable {
     }
 }
 
-// MARK: Item convenience initializers and mutators
+// MARK: Repository convenience initializers and mutators
 
 extension Repository {
     init(data: Data) throws {
@@ -162,10 +157,10 @@ extension Repository {
         nodeID: String?? = nil,
         name: String?? = nil,
         fullName: String?? = nil,
-        itemPrivate: Bool?? = nil,
+        repositoryPrivate: Bool?? = nil,
         owner: Owner?? = nil,
         htmlURL: String?? = nil,
-        itemDescription: String?? = nil,
+        repositoryDescription: String?? = nil,
         fork: Bool?? = nil,
         url: String?? = nil,
         forksURL: String?? = nil,
@@ -238,10 +233,10 @@ extension Repository {
             nodeID: nodeID ?? self.nodeID,
             name: name ?? self.name,
             fullName: fullName ?? self.fullName,
-            itemPrivate: itemPrivate ?? self.itemPrivate,
+            repositoryPrivate: repositoryPrivate ?? self.repositoryPrivate,
             owner: owner ?? self.owner,
             htmlURL: htmlURL ?? self.htmlURL,
-            itemDescription: itemDescription ?? self.itemDescription,
+            repositoryDescription: repositoryDescription ?? self.repositoryDescription,
             fork: fork ?? self.fork,
             url: url ?? self.url,
             forksURL: forksURL ?? self.forksURL,
@@ -319,7 +314,3 @@ extension Repository {
         return String(data: try self.jsonData(), encoding: encoding)
     }
 }
-
-
-
-
