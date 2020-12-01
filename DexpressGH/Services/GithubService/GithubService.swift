@@ -8,11 +8,13 @@
 
 import Foundation
 
-typealias RepositoriesClosure = (Repositories) -> (Void)
+typealias RepositoriesClosure = (Repositories, [String:String] ) -> (Void)
+typealias LocalRepositoryClosure = (Repositories) -> (Void)
 
 protocol GitHubApi {
     var endpoint: String { get }
-    func fetchRepositoriesFromJson( completion: @escaping(RepositoriesClosure)) -> (Void)
+    func fetchRepositories(keywords:[String], with qualifiers: [String:String], completion: @escaping(RepositoriesClosure)) -> (Void)
+    func fetchRepositoriesFromJson( completion: @escaping(LocalRepositoryClosure)) -> (Void)
     func fetchTracerRepositories( completion: @escaping(RepositoriesClosure)) -> (Void)
 
 }
@@ -26,9 +28,28 @@ class GitHubServiceImpl {
 }
 
 extension GitHubServiceImpl: GitHubApi {
+    
+    
     func requestUrl(path: String) -> URL {
         return URL(string:  endpoint + path )!
     }
+    
+    func buildPath(from keywords: [String], qualifiers:[String:String]) -> String{
+        var path:String = ""
+        path = keywords.joined(separator: "+")
+        if qualifiers.isEmpty == false {
+            for k in qualifiers.keys {
+                guard let qualifier = qualifiers[k] else {
+                    print("error appending qualifier value")
+                    return path
+                }
+                let q = "+" + k + ":" + qualifier
+                path.append(q)
+            }
+        }
+        return path
+    }
+        
     
     func getReposUrl(from user:String) -> URL {
         let path = "user:\(user)"
@@ -40,24 +61,55 @@ extension GitHubServiceImpl: GitHubApi {
         return getReposUrl(from: "istornz")
     }
     
-    func fetchTracerRepositories(completion: @escaping(Repositories) -> Void){
+    func fetchTracerRepositories(completion: @escaping (RepositoriesClosure)) {
         let url = get_tracer_repos()
         print("URL Path: ", url.absoluteString)
         
         let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
-             if let repositories = repositories {
-                completion(repositories)
-             }
+            guard let repositories = repositories else{
+                print("Error fetching repositories")
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                let pagination_dict =
+                httpResponse.extractPagination(with: "Link")
+                completion(repositories, pagination_dict)
+            }
+            
+            
         }
         task.resume()
     
     }
     
+    func fetchRepositories(keywords: [String], with qualifiers: [String : String], completion: @escaping (RepositoriesClosure)) {
+        let path = buildPath(from: keywords, qualifiers: qualifiers)
+        let url = requestUrl(path: path)
+        print("URL Path: ", url.absoluteString)
+        
+        let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
+            guard let repositories = repositories else{
+                print("Error fetching repositories")
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                let pagination_dict =
+                httpResponse.extractPagination(with: "Link")
+                completion(repositories, pagination_dict)
+            }
+            
+                
+        }
+        task.resume()
+        
+    }
     
-    func fetchRepositoriesFromJson(completion: @escaping(Repositories) -> Void) {
+    func fetchRepositoriesFromJson(completion: (LocalRepositoryClosure)) {
+        
         if let url = Bundle.main.url(forResource: "all-repos", withExtension: "json") {
             do { let data = try Data(contentsOf: url)
                 let repositories = try JSONDecoder().decode(Repositories.self, from: data)
+                
                 completion(repositories)
                 
             }catch {

@@ -31,7 +31,7 @@ class RepoItemCell: UITableViewCell {
     
     func configure(usingModel repoModel: RepositoryItemViewModel) -> Void {
         
-        configAvatar(imageView: avatarImageView)
+        configAvatar(imageView: avatarImageView, url: repoModel.avatar_url)
         
         //TODO: ADD a download method for url avatar image
         self.titleLabel.text = repoModel.title
@@ -42,9 +42,10 @@ class RepoItemCell: UITableViewCell {
         
     }
     
-    func configAvatar(imageView: UIImageView) {
-        self.avatarImageView.layer.cornerRadius = 25
-        self.avatarImageView.layer.masksToBounds = true
-        //self.avatarImageView.image = UIImage(url)
+    func configAvatar(imageView: UIImageView, url:String) {
+        imageView.layer.cornerRadius = 25
+        imageView.layer.masksToBounds = true
+        imageView.imageFromServerURL(url, placeHolder: UIImage(named: "user-placeholder"))
+            
     }
 }

@@ -10,6 +10,8 @@ import Foundation
 
 protocol MainPresentation {
     func viewDidLoad() -> Void
+    func searchRepos(for keywords:[String], with qualifiers:[String:String]) -> Void
+    func loadNextPage(link:String) -> Void
 }
 
 class MainPresenter {
@@ -21,6 +23,11 @@ class MainPresenter {
         self.interactor = interactor
         self.router = router
     }
+    
+    private func getRepoItem(items:[Item]) -> [RepositoryItemViewModel] {
+        let repolist = items.compactMap({ RepositoryItemViewModel(using: $0) })
+        return repolist
+    }
 }
 
 
@@ -28,22 +35,40 @@ extension MainPresenter: MainPresentation {
     //Mocks our view viewdidLoad method
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.interactor?.getRepositories(completion: {(results) in
-                if let items = results.items
-                {
-                    if items.count > 0 {
-                        let reposList = items.compactMap({ RepositoryItemViewModel(using: $0) })
-                            
-                        DispatchQueue.main.async {
-                            self?.view?.updateResults(repoList: reposList)
-                        }
-                    }else {
-                        print("No repos found to be loaded")
-                    }
+            self?.interactor?.getRepositories(for: ["t2ac32"], with: [:], completion: {(results, pagination) in
+                
+                guard let items = results.items, items.count > 0 else {
+                    print("No items in response")
+                    return
+                }
+                let reposList = self!.getRepoItem(items: items)
+                DispatchQueue.main.async {
+                    self?.view?.updateResults(repoList: reposList, pagination: pagination)
                 }
             })
         }
     }
+    
+    func searchRepos(for keywords:[String], with qualifiers:[String:String] ) {
+
+        DispatchQueue.global(qos: .background).async {[weak self] in
+            self?.interactor?.getRepositories(for: keywords, with: qualifiers, completion: { (results, pagination) -> (Void) in
+                guard let items = results.items, items.count > 0 else {
+                    print("No items in response")
+                    return
+                }
+                let repolist = self!.getRepoItem(items: items)
+                DispatchQueue.main.async {
+                    self?.view?.updateResults(repoList: repolist, pagination: pagination)
+                }
+            })
+        }
+    }
+    
+    func LoadNextPage(link: String) {
+        //TODO: UPDATE Data Source
+    }
+    
 }
 
 struct RepositoryItemViewModel {

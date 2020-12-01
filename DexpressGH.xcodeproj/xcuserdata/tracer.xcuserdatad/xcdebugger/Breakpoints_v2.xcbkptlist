@@ -62,10 +62,137 @@
             filePath = "DexpressGH/Modules/MainModule/MainPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "RepositoryItemViewModel"
+            landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "95B40BFC-50DF-4583-9218-22D0803EFEBD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DexpressGH/Modules/MainModule/MainPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "searchRepos(for:with:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "95B40BFC-50DF-4583-9218-22D0803EFEBD - 5541a9a69ee364a4"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DexpressGH.MainPresenter.searchRepos(for: Swift.Array&lt;Swift.String&gt;, with: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "DexpressGH"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tracer/Developer/DurstExrpess/DexpressGH/DexpressGH/Modules/MainModule/MainPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "249">
+               </Location>
+               <Location
+                  uuid = "95B40BFC-50DF-4583-9218-22D0803EFEBD - e125112a3fed0bf7"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in DexpressGH.MainPresenter.searchRepos(for: Swift.Array&lt;Swift.String&gt;, with: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "DexpressGH"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tracer/Developer/DurstExrpess/DexpressGH/DexpressGH/Modules/MainModule/MainPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  uuid = "95B40BFC-50DF-4583-9218-22D0803EFEBD - 5cb58b941feae802"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (DexpressGH.Repositories) -&gt; () in closure #1 () -&gt; () in DexpressGH.MainPresenter.searchRepos(for: Swift.Array&lt;Swift.String&gt;, with: Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()"
+                  moduleName = "DexpressGH"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tracer/Developer/DurstExrpess/DexpressGH/DexpressGH/Modules/MainModule/MainPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "281">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F1489AE-70B6-48E7-90A3-55284656FCF6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DexpressGH/Modules/MainModule/MainPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
             endingLineNumber = "59"
-            landmarkName = "init(using:)"
+            landmarkName = "searchRepos(for:with:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BA96821B-DF51-4C2F-9386-80FE50CCB1FE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DexpressGH/Services/GithubService/GithubService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "fetchTracerRepositories(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BA96821B-DF51-4C2F-9386-80FE50CCB1FE - c0289ea64af89a2c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "DexpressGH.GitHubServiceImpl.fetchTracerRepositories(completion: (DexpressGH.Repositories, Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "DexpressGH"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tracer/Developer/DurstExrpess/DexpressGH/DexpressGH/Services/GithubService/GithubService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "438">
+               </Location>
+               <Location
+                  uuid = "BA96821B-DF51-4C2F-9386-80FE50CCB1FE - 2adc982a488184ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;DexpressGH.Repositories&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in DexpressGH.GitHubServiceImpl.fetchTracerRepositories(completion: (DexpressGH.Repositories, Swift.Dictionary&lt;Swift.String, Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "DexpressGH"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tracer/Developer/DurstExrpess/DexpressGH/DexpressGH/Services/GithubService/GithubService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "309">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
