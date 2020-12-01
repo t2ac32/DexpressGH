@@ -41,6 +41,7 @@
 		52FA582625765F9A00963BE9 /* OptionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52FA582425765F9A00963BE9 /* OptionsCell.xib */; };
 		52FA582825767A1800963BE9 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA582725767A1800963BE9 /* UIImageExtension.swift */; };
 		52FA582A2576AC4B00963BE9 /* ResponseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA58292576AC4B00963BE9 /* ResponseExtension.swift */; };
+		52FA582C2576BB5F00963BE9 /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA582B2576BB5F00963BE9 /* Pagination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		52FA582425765F9A00963BE9 /* OptionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsCell.xib; sourceTree = "<group>"; };
 		52FA582725767A1800963BE9 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		52FA58292576AC4B00963BE9 /* ResponseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseExtension.swift; sourceTree = "<group>"; };
+		52FA582B2576BB5F00963BE9 /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,10 +191,6 @@
 		52429DF32572749A00735D7D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				52FA581B2575890B00963BE9 /* Item.swift */,
-				52FA58182575890A00963BE9 /* License.swift */,
-				52FA581A2575890B00963BE9 /* Owner.swift */,
-				52FA58192575890A00963BE9 /* Repositories.swift */,
 				52429DF4257274AF00735D7D /* MainModule */,
 			);
 			path = Modules;
@@ -201,8 +199,8 @@
 		52429DF4257274AF00735D7D /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
+				52FA582D2576CC1A00963BE9 /* MainView */,
 				52429E0B257298CC00735D7D /* cell */,
-				52429DF5257274E600735D7D /* MainViewController.swift */,
 				52429DF7257275B400735D7D /* MainPresenter.swift */,
 				52429DF92572760200735D7D /* Router.swift */,
 				52429DFB2572769200735D7D /* Interactor.swift */,
@@ -214,6 +212,11 @@
 		52429DFD2572791800735D7D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52FA581B2575890B00963BE9 /* Item.swift */,
+				52FA58182575890A00963BE9 /* License.swift */,
+				52FA581A2575890B00963BE9 /* Owner.swift */,
+				52FA58192575890A00963BE9 /* Repositories.swift */,
+				52FA582B2576BB5F00963BE9 /* Pagination.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,6 +287,14 @@
 				52FA582425765F9A00963BE9 /* OptionsCell.xib */,
 			);
 			path = optionsCell;
+			sourceTree = "<group>";
+		};
+		52FA582D2576CC1A00963BE9 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				52429DF5257274E600735D7D /* MainViewController.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,6 +457,7 @@
 				52FA581C2575890B00963BE9 /* License.swift in Sources */,
 				52FA581D2575890B00963BE9 /* Repositories.swift in Sources */,
 				52FA582825767A1800963BE9 /* UIImageExtension.swift in Sources */,
+				52FA582C2576BB5F00963BE9 /* Pagination.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

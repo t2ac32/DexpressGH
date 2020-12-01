@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 protocol MainView: class{
-    func updateResults(repoList: [RepositoryItemViewModel], pagination: [String:String]) -> ()
+    func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination) -> ()
 }
 
 class MainViewController: UIViewController, UISearchBarDelegate {
@@ -33,13 +33,13 @@ class MainViewController: UIViewController, UISearchBarDelegate {
       return searchController.isActive && !isSearchBarEmpty
     }
     
-    
     private static let repositoryCellID = "repoItemCell"
     private static let optionsCellID = "optionsCell"
     
-    var pagination: [String:String] = [:]
+    var pagination: Pagination?
     var datasource: [RepositoryItemViewModel] = [] {
         didSet { self.tableView.reloadData() }
+        
     }
     
     init(presenter: MainPresentation) {
@@ -50,7 +50,6 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,10 +75,10 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search GitHub"
+        searchController.searchBar.placeholder = "Search GitHub Repos"
         searchController.searchBar.barStyle = .black
         navigationItem.searchController = searchController
-        definesPresentationContext = true
+        definesPresentationContext = false
         tableView.register(UINib(nibName: "OptionsCell", bundle: nil), forCellReuseIdentifier: MainViewController.optionsCellID)
     }
     
@@ -101,7 +100,43 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     }
 }
 
-extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+//MARK: View Protocol
+extension MainViewController: MainView {
+    
+    func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination) {
+        print(repoList)
+        //The fatched data is received here
+        //update Table View
+        self.pagination = pagination
+        if self.datasource.isEmpty{
+            self.datasource = repoList
+        }else{
+            self.datasource.append(contentsOf: repoList)
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension MainViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+        
+    }
+
+    func filterContentForSearchText(_ searchText: String) {
+        query_options = []
+        for option in api_options{
+            query_options.append(option + searchText)
+        }
+        tableView.reloadData()
+    }
+    
+}
+
+
+//MARK: TABLE VIEW DATASOURCE
+extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
             return self.query_options.count
@@ -133,7 +168,6 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         return 101
     }
     
-    
     func get_option_cell(indexPath: IndexPath)  -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "optionsCell", for: indexPath) as! OptionsCell
         var search_option = ""
@@ -150,6 +184,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         if isFiltering {
             let searchBar = searchController.searchBar
             let keywords = searchBar.text!.components(separatedBy: " ")
+            self.searchController.isActive = false
+            self.datasource = []
             switch indexPath.row {
             case 0: break
                 //presenter -> router search reponame
@@ -162,41 +198,24 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+}
+
+//MARK: TABLE VIEW DELEGATE
+extension MainViewController: UITableViewDelegate {
+    /*
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let lastElement = self.datasource.count - 1
         if indexPath.row == lastElement {
             // presente -> getNextPage -> interactor -> gitservie
+            guard let next_p = pagination?.next else {
+                return
+            }
+            self.presenter.loadNextPage(link: next_p)
         }
     }
+    */
+    
+    
     
 }
 
-//MARK: View Protocol 
-extension MainViewController: MainView {
-    
-    func updateResults(repoList: [RepositoryItemViewModel], pagination: [String:String]) {
-        print(repoList)
-        //The fatched data is received here
-        //update Table View
-        self.pagination = pagination
-        self.datasource = repoList
-    }
-    
-}
-
-extension MainViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        filterContentForSearchText(searchBar.text!)
-        
-    }
-    
-    
-    func filterContentForSearchText(_ searchText: String) {
-        query_options = []
-        for option in api_options{
-            query_options.append(option + searchText)
-        }
-        tableView.reloadData()
-    }
-}

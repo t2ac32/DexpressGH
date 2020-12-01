@@ -35,6 +35,9 @@ extension MainViewInteractor: MainViewInteractorInput {
     }
     
     func getNextPage(pagination: String, completion: @escaping (RepositoriesClosure)) {
-        //TODO: SEND RESULTS TO VIEW
+        //TODO: SEND RESULTS TO VIE
+        self.service.fetchNextPage(link: pagination) { (repositories, pagination) -> (Void) in
+            completion(repositories, pagination)
+        }
     }
 }

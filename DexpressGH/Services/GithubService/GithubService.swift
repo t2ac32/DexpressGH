@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias RepositoriesClosure = (Repositories, [String:String] ) -> (Void)
+typealias RepositoriesClosure = (Repositories, Pagination ) -> (Void)
 typealias LocalRepositoryClosure = (Repositories) -> (Void)
 
 protocol GitHubApi {
@@ -16,6 +16,7 @@ protocol GitHubApi {
     func fetchRepositories(keywords:[String], with qualifiers: [String:String], completion: @escaping(RepositoriesClosure)) -> (Void)
     func fetchRepositoriesFromJson( completion: @escaping(LocalRepositoryClosure)) -> (Void)
     func fetchTracerRepositories( completion: @escaping(RepositoriesClosure)) -> (Void)
+    func fetchNextPage(link:String, completion: @escaping(RepositoriesClosure)) -> (Void)
 
 }
 
@@ -23,12 +24,6 @@ class GitHubServiceImpl {
     internal let endpoint: String = "https://api.github.com/search/repositories?q="
     
     static let shared: GitHubServiceImpl = GitHubServiceImpl()
-    
-    
-}
-
-extension GitHubServiceImpl: GitHubApi {
-    
     
     func requestUrl(path: String) -> URL {
         return URL(string:  endpoint + path )!
@@ -49,8 +44,11 @@ extension GitHubServiceImpl: GitHubApi {
         }
         return path
     }
-        
     
+}
+
+extension GitHubServiceImpl: GitHubApi {
+        
     func getReposUrl(from user:String) -> URL {
         let path = "user:\(user)"
         let url = requestUrl(path: path)
@@ -75,11 +73,8 @@ extension GitHubServiceImpl: GitHubApi {
                 httpResponse.extractPagination(with: "Link")
                 completion(repositories, pagination_dict)
             }
-            
-            
         }
         task.resume()
-    
     }
     
     func fetchRepositories(keywords: [String], with qualifiers: [String : String], completion: @escaping (RepositoriesClosure)) {
@@ -97,11 +92,8 @@ extension GitHubServiceImpl: GitHubApi {
                 httpResponse.extractPagination(with: "Link")
                 completion(repositories, pagination_dict)
             }
-            
-                
         }
         task.resume()
-        
     }
     
     func fetchRepositoriesFromJson(completion: (LocalRepositoryClosure)) {
@@ -116,6 +108,22 @@ extension GitHubServiceImpl: GitHubApi {
                 print("Could not get data from local json file")
             }
         }
+    }
+    
+    func fetchNextPage(link: String, completion: @escaping (RepositoriesClosure)) {
+        let url = self.requestUrl(path: link)
+        let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
+            guard let repositories = repositories else{
+                print("Error fetching Next Page")
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                let pagination_dict =
+                httpResponse.extractPagination(with: "Link")
+                completion(repositories, pagination_dict)
+            }
+        }
+        task.resume()
     }
     
     

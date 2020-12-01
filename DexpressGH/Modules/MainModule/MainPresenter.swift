@@ -32,10 +32,12 @@ class MainPresenter {
 
 
 extension MainPresenter: MainPresentation {
+    
+    
     //Mocks our view viewdidLoad method
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.interactor?.getRepositories(for: ["t2ac32"], with: [:], completion: {(results, pagination) in
+            self?.interactor?.getRepositories(for: [""], with: ["user":"t2ac32"], completion: {(results, pagination) in
                 
                 guard let items = results.items, items.count > 0 else {
                     print("No items in response")
@@ -65,10 +67,21 @@ extension MainPresenter: MainPresentation {
         }
     }
     
-    func LoadNextPage(link: String) {
+    func loadNextPage(link: String) {
         //TODO: UPDATE Data Source
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.interactor?.getNextPage(pagination: link, completion: { (results, pagination) -> (Void) in
+                guard let items = results.items, items.count > 0 else {
+                    print("No items in response")
+                    return
+                }
+                let repolist = self!.getRepoItem(items: items)
+                DispatchQueue.main.async {
+                    self?.view?.updateResults(repoList: repolist, pagination: pagination)
+                }
+            })
+        }
     }
-    
 }
 
 struct RepositoryItemViewModel {
