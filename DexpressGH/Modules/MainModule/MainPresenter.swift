@@ -69,6 +69,7 @@ extension MainPresenter: MainPresentation {
     
     func loadNextPage(link: String) {
         //TODO: UPDATE Data Source
+        print(link)
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.interactor?.getNextPage(pagination: link, completion: { (results, pagination) -> (Void) in
                 guard let items = results.items, items.count > 0 else {

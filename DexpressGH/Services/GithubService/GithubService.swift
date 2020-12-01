@@ -25,8 +25,17 @@ class GitHubServiceImpl {
     
     static let shared: GitHubServiceImpl = GitHubServiceImpl()
     
-    func requestUrl(path: String) -> URL {
-        return URL(string:  endpoint + path )!
+    func requestUrl(path: String) -> URL? {
+        if path.contains(endpoint) {
+            if let url = URL(string: path) {
+                return url
+            }
+            
+        }
+        guard let url = URL(string: endpoint + path) else {
+            return nil
+        }
+        return url
     }
     
     func buildPath(from keywords: [String], qualifiers:[String:String]) -> String{
@@ -49,18 +58,26 @@ class GitHubServiceImpl {
 
 extension GitHubServiceImpl: GitHubApi {
         
-    func getReposUrl(from user:String) -> URL {
+    func getReposUrl(from user:String) -> URL? {
         let path = "user:\(user)"
-        let url = requestUrl(path: path)
+        guard let url = requestUrl(path: path) else {
+            return nil
+        }
         return url
     }
     
-    func get_tracer_repos() -> URL {
-        return getReposUrl(from: "istornz")
+    func get_tracer_repos() -> URL? {
+        guard let url = getReposUrl(from:
+            "istornz") else{
+            return nil
+        }
+        return url
     }
     
     func fetchTracerRepositories(completion: @escaping (RepositoriesClosure)) {
-        let url = get_tracer_repos()
+        guard let url = get_tracer_repos() else {
+            return 
+        }
         print("URL Path: ", url.absoluteString)
         
         let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
@@ -79,7 +96,10 @@ extension GitHubServiceImpl: GitHubApi {
     
     func fetchRepositories(keywords: [String], with qualifiers: [String : String], completion: @escaping (RepositoriesClosure)) {
         let path = buildPath(from: keywords, qualifiers: qualifiers)
-        let url = requestUrl(path: path)
+        guard let url = requestUrl(path: path) else{
+            print("Error getting Request URL")
+            return
+        }
         print("URL Path: ", url.absoluteString)
         
         let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
@@ -111,7 +131,9 @@ extension GitHubServiceImpl: GitHubApi {
     }
     
     func fetchNextPage(link: String, completion: @escaping (RepositoriesClosure)) {
-        let url = self.requestUrl(path: link)
+        guard let url = self.requestUrl(path: link) else {
+            return
+        }
         let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
             guard let repositories = repositories else{
                 print("Error fetching Next Page")

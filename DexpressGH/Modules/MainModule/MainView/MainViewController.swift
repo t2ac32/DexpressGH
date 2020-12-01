@@ -104,7 +104,6 @@ class MainViewController: UIViewController, UISearchBarDelegate {
 extension MainViewController: MainView {
     
     func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination) {
-        print(repoList)
         //The fatched data is received here
         //update Table View
         self.pagination = pagination
@@ -187,11 +186,16 @@ extension MainViewController: UITableViewDataSource {
             self.searchController.isActive = false
             self.datasource = []
             switch indexPath.row {
-            case 0: break
+            case 0:
                 //presenter -> router search reponame
-                
+                presenter.searchRepos(for: keywords, with: ["in":"name"])
+            case 1:
+                presenter.searchRepos(for: keywords, with: ["user":"username"])
             case 2:
                 presenter.searchRepos(for: keywords, with: ["in":"description"])
+            case 3:
+                presenter.searchRepos(for: keywords, with: ["in":"readme"])
+                
             default:
                 print("search query not found")
             }
@@ -202,20 +206,27 @@ extension MainViewController: UITableViewDataSource {
 
 //MARK: TABLE VIEW DELEGATE
 extension MainViewController: UITableViewDelegate {
-    /*
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let lastElement = self.datasource.count - 1
-        if indexPath.row == lastElement {
-            // presente -> getNextPage -> interactor -> gitservie
-            guard let next_p = pagination?.next else {
-                return
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isFiltering == false {
+            let lastSectionIndex = tableView.numberOfSections - 1
+            let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+            if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+                // print("this is the last cell")
+                let spinner = UIActivityIndicatorView(style: .medium)
+                spinner.color = UIColor.tracer_Green
+                spinner.startAnimating()
+                spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+                self.tableView.tableFooterView = spinner
+                self.tableView.tableFooterView?.isHidden = false
+                
+                guard let next_p = pagination?.next, next_p.isEmpty == false else {
+                    return
+                }
+                self.presenter.loadNextPage(link: next_p)
             }
-            self.presenter.loadNextPage(link: next_p)
         }
     }
-    */
-    
-    
-    
 }
+
 

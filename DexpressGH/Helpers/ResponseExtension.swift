@@ -20,7 +20,8 @@ extension HTTPURLResponse {
         var pagination_links: [String: String] = [:]
         links.forEach({
             let components = $0.components(separatedBy:"; ")
-            let cleanPath = components[0].trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
+            var cleanPath = components[0].trimmingCharacters(in: .whitespaces)
+            cleanPath = cleanPath.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
             pagination_links[components[1]] = cleanPath
         })
         
