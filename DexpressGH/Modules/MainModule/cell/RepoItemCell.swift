@@ -45,5 +45,6 @@ class RepoItemCell: UITableViewCell {
     func configAvatar(imageView: UIImageView) {
         self.avatarImageView.layer.cornerRadius = 25
         self.avatarImageView.layer.masksToBounds = true
+        //self.avatarImageView.image = UIImage(url)
     }
 }

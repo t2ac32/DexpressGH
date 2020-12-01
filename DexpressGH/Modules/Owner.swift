@@ -16,38 +16,28 @@ import Foundation
 
 // MARK: - Owner
 struct Owner: Codable {
-    let login: Login?
+    let login: String?
     let id: Int?
-    let nodeID: NodeID?
     let avatarURL: String?
     let gravatarID: String?
     let url, htmlURL, followersURL: String?
-    let followingURL: FollowingURL?
-    let gistsURL: GistsURL?
-    let starredURL: StarredURL?
     let subscriptionsURL, organizationsURL, reposURL: String?
-    let eventsURL: EventsURL?
+    
     let receivedEventsURL: String?
-    let type: TypeEnum?
+    
     let siteAdmin: Bool?
 
     enum CodingKeys: String, CodingKey {
         case login, id
-        case nodeID
-        case avatarURL
+        case avatarURL = "avatar_url"
         case gravatarID
         case url
         case htmlURL
         case followersURL
-        case followingURL
-        case gistsURL
-        case starredURL
         case subscriptionsURL
         case organizationsURL
         case reposURL
-        case eventsURL
         case receivedEventsURL
-        case type
         case siteAdmin
     }
 }
@@ -71,43 +61,31 @@ extension Owner {
     }
 
     func with(
-        login: Login?? = nil,
+        login: String?? = nil,
         id: Int?? = nil,
-        nodeID: NodeID?? = nil,
         avatarURL: String?? = nil,
         gravatarID: String?? = nil,
         url: String?? = nil,
         htmlURL: String?? = nil,
         followersURL: String?? = nil,
-        followingURL: FollowingURL?? = nil,
-        gistsURL: GistsURL?? = nil,
-        starredURL: StarredURL?? = nil,
         subscriptionsURL: String?? = nil,
         organizationsURL: String?? = nil,
         reposURL: String?? = nil,
-        eventsURL: EventsURL?? = nil,
         receivedEventsURL: String?? = nil,
-        type: TypeEnum?? = nil,
         siteAdmin: Bool?? = nil
     ) -> Owner {
         return Owner(
             login: login ?? self.login,
             id: id ?? self.id,
-            nodeID: nodeID ?? self.nodeID,
             avatarURL: avatarURL ?? self.avatarURL,
             gravatarID: gravatarID ?? self.gravatarID,
             url: url ?? self.url,
             htmlURL: htmlURL ?? self.htmlURL,
             followersURL: followersURL ?? self.followersURL,
-            followingURL: followingURL ?? self.followingURL,
-            gistsURL: gistsURL ?? self.gistsURL,
-            starredURL: starredURL ?? self.starredURL,
             subscriptionsURL: subscriptionsURL ?? self.subscriptionsURL,
             organizationsURL: organizationsURL ?? self.organizationsURL,
             reposURL: reposURL ?? self.reposURL,
-            eventsURL: eventsURL ?? self.eventsURL,
             receivedEventsURL: receivedEventsURL ?? self.receivedEventsURL,
-            type: type ?? self.type,
             siteAdmin: siteAdmin ?? self.siteAdmin
         )
     }

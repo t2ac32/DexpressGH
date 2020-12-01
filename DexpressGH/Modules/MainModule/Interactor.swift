@@ -30,11 +30,11 @@ extension MainViewInteractor: MainViewInteractorInput {
         self.service.fetchTracerRepositories { (results) in
             completion(results)
         }
-    /*
-    self.service.fetchRepositoriesFromJson { (results) -> (Void) in
-            completion(results)
+        /*
+         self.service.fetchRepositoriesFromJson { (results) -> (Void) in
+                completion(results)
         }
-    */
+        */
         
     }
     

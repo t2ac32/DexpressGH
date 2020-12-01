@@ -160,7 +160,7 @@
     <resources>
         <image name="asuka" width="315" height="235"/>
         <image name="code-fork-100" width="100" height="100"/>
-        <image name="third-eye-symbol-100" width="100" height="100"/>
-        <image name="user-groups-100" width="100" height="100"/>
+        <image name="third-eye-symbol-100" width="90" height="90"/>
+        <image name="user-groups-100" width="96" height="96"/>
     </resources>
 </document>

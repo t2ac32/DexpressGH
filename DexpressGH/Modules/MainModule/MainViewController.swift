@@ -13,11 +13,18 @@ protocol MainView: class{
     func updateResults(repoList: [RepositoryItemViewModel]) -> ()
 }
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UISearchBarDelegate {
     
     // Reference to presenter
     private var presenter: MainPresentation
     private var tableView: UITableView = { return UITableView() }()
+    
+    private let navItem = UINavigationItem(title: "Home")
+    
+    
+    
+    
+    
     
     private static let repositoryCellID = "repoItemCell"
     
@@ -38,25 +45,47 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        view.addSubview(tableView)
+        setupView()
         configTableView()
         // Do additional setup after loading the view.
         presenter.viewDidLoad()
         
     }
     
+    func setupView(){
+        let searchBar: UISearchBar = UISearchBar()
+        view.backgroundColor = .black
+        guard let nbar = self.navigationController?.navigationBar else {
+            return
+        }
+        nbar.barTintColor = .black
+        nbar.titleTextAttributes = [.foregroundColor: UIColor(red: 0.18, green: 0.80, blue: 0.44, alpha: 1.00)]
+        self.title = "Home"
+        
+        searchBar.placeholder = "Search Github"
+        searchBar.searchBarStyle = .prominent
+        searchBar.sizeToFit()
+        searchBar.isTranslucent = false
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
     func setupTableView() {
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .black
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
+        view.addSubview(tableView)
     }
     
     func configTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor
+            , constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
     }
 }
@@ -81,6 +110,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 101
     }
+    
+    
     
 }
 

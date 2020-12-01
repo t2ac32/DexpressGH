@@ -61,7 +61,5 @@ struct RepositoryItemViewModel {
         self.followers = Double(repoModel.stargazersCount ?? 0).unitFormatted()
         self.forks =  Double(repoModel.forks ?? 0).unitFormatted()
         self.watchers = Double(repoModel.watchers ?? 0).unitFormatted()
-        
-        
     }
 }
