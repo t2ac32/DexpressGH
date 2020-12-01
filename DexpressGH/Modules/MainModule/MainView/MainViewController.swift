@@ -11,35 +11,37 @@ import Foundation
 
 protocol MainView: class{
     func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination) -> ()
+    func noResultsFound() -> ()
 }
 
 class MainViewController: UIViewController, UISearchBarDelegate {
     
     // Reference to presenter
     private var presenter: MainPresentation
+    //MARK: Views initialization
     private var tableView: UITableView = { return UITableView() }()
-    
+    private var noResultsView: UIView = { return UIView() }()
+    private var noResultsLbl: UILabel = { return UILabel() }()
     private let navItem = UINavigationItem(title: "Home")
     let searchController = UISearchController(searchResultsController: nil)
+    
     private let api_options:[String] = ["Repos named ",
                                           "Repo owner is ",
                                           "Description contains ",
                                           "ReadME contains "]
+    //MARK: Functional Vars and constants
+    private static let repositoryCellID = "repoItemCell"
+    private static let optionsCellID = "optionsCell"
     var query_options: [String] = []
+    var pagination: Pagination?
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
     var isFiltering: Bool {
       return searchController.isActive && !isSearchBarEmpty
     }
-    
-    private static let repositoryCellID = "repoItemCell"
-    private static let optionsCellID = "optionsCell"
-    
-    var pagination: Pagination?
     var datasource: [RepositoryItemViewModel] = [] {
         didSet { self.tableView.reloadData() }
-        
     }
     
     init(presenter: MainPresentation) {
@@ -53,15 +55,15 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do additional setup after loading the view.
+        setupNoResultsView()
         setupTableView()
         setupSearchController()
         setupView()
         configTableView()
-        // Do additional setup after loading the view.
         presenter.viewDidLoad()
-        
     }
-    
+    //MARK: Subviews setups
     func setupView(){
         view.backgroundColor = .black
         guard let nbar = self.navigationController?.navigationBar else {
@@ -98,21 +100,62 @@ class MainViewController: UIViewController, UISearchBarDelegate {
             , constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
     }
+    
+    func setupNoResultsView(){
+        view.addSubview(noResultsView)
+        noResultsView.translatesAutoresizingMaskIntoConstraints = false
+        noResultsView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        noResultsView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        noResultsView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        noResultsView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        noResultsView.backgroundColor = .black
+        noResultsView.addSubview(noResultsLbl)
+        noResultsLbl.translatesAutoresizingMaskIntoConstraints = false
+        noResultsLbl.centerYAnchor.constraint(equalTo: noResultsView.centerYAnchor).isActive = true
+        noResultsLbl.leftAnchor.constraint(equalTo: noResultsView.leftAnchor, constant: 0).isActive = true
+        noResultsLbl.rightAnchor.constraint(equalTo: noResultsView.rightAnchor, constant: 0).isActive = true
+        noResultsLbl.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        noResultsLbl.textColor = UIColor.tracer_Green
+        noResultsLbl.backgroundColor = .none
+        noResultsLbl.font.withSize(35)
+        noResultsLbl.text = "No results Found"
+        noResultsLbl.textAlignment = .center
+    }
+    
+    func didFoundResults(didFound:Bool){
+        if didFound{
+            tableView.isHidden = false
+        }else{
+            tableView.isHidden = true
+        }
+    }
+
 }
 
 //MARK: View Protocol
 extension MainViewController: MainView {
-    
+    /// Receives results from presenter
+    ///
+    /// - Parameters:
+    ///     - repoList: array containing repo object to be displayed
+    ///     - pagination: Pagination object if query has more than 30 results
     func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination) {
         //The fatched data is received here
-        //update Table View
-        self.pagination = pagination
-        if self.datasource.isEmpty{
-            self.datasource = repoList
-        }else{
-            self.datasource.append(contentsOf: repoList)
-            self.tableView.reloadData()
-        }
+        
+            didFoundResults(didFound: true)
+            self.pagination = pagination
+            if self.datasource.isEmpty{
+                self.datasource = repoList
+            }else{
+                self.datasource.append(contentsOf: repoList)
+                self.tableView.reloadData()
+            }
+    }
+    func noResultsFound() {
+        //The fatched data is received here
+        print("No items in response")
+        didFoundResults(didFound: false)
+        
     }
 }
 
@@ -120,7 +163,6 @@ extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContentForSearchText(searchBar.text!)
-        
     }
 
     func filterContentForSearchText(_ searchText: String) {

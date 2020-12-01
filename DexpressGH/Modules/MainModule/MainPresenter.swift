@@ -56,7 +56,10 @@ extension MainPresenter: MainPresentation {
         DispatchQueue.global(qos: .background).async {[weak self] in
             self?.interactor?.getRepositories(for: keywords, with: qualifiers, completion: { (results, pagination) -> (Void) in
                 guard let items = results.items, items.count > 0 else {
-                    print("No items in response")
+                    print("Error Searching for Repos")
+                    DispatchQueue.main.async {
+                        self?.view?.noResultsFound()
+                    }
                     return
                 }
                 let repolist = self!.getRepoItem(items: items)
