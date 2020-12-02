@@ -34,7 +34,7 @@ struct Item: Codable {
         case owner
         case itemDescription = "description"
         case fork, url
-        case stargazersCount
+        case stargazersCount = "stargazers_count"
         case watchersCount
         case language
         case forksCount

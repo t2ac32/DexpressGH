@@ -80,7 +80,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "83"
                   endingLineNumber = "83"
-                  offsetFromSymbolStart = "565">
+                  offsetFromSymbolStart = "600">
                </Location>
                <Location
                   uuid = "BA96821B-DF51-4C2F-9386-80FE50CCB1FE - 2cd506813d3377a5"
@@ -95,7 +95,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "84"
                   endingLineNumber = "84"
-                  offsetFromSymbolStart = "321">
+                  offsetFromSymbolStart = "268">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -177,6 +177,22 @@
             startingLineNumber = "43"
             endingLineNumber = "43"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7F07225A-097D-48EC-ABC4-E8ABFAC956AA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DexpressGH/Modules/MainModule/MainPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "init(using:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -22,6 +22,7 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     private var tableView: UITableView = { return UITableView() }()
     private var noResultsView: UIView = { return UIView() }()
     private var noResultsLbl: UILabel = { return UILabel() }()
+    
     private let navItem = UINavigationItem(title: "Home")
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -69,6 +70,7 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         guard let nbar = self.navigationController?.navigationBar else {
             return
         }
+        nbar.isTranslucent = false
         nbar.barTintColor = .black
         nbar.titleTextAttributes = [.foregroundColor: UIColor.tracer_Green]
         self.title = "Home"
@@ -122,6 +124,7 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         noResultsLbl.textAlignment = .center
     }
     
+    
     func didFoundResults(didFound:Bool){
         if didFound{
             tableView.isHidden = false
@@ -161,6 +164,7 @@ extension MainViewController: MainView {
 
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        tableView.isHidden = false
         let searchBar = searchController.searchBar
         filterContentForSearchText(searchBar.text!)
     }
@@ -250,6 +254,9 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let next_p = pagination?.next, next_p.isEmpty == false else {
+            return
+        }
         if isFiltering == false {
             let lastSectionIndex = tableView.numberOfSections - 1
             let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
@@ -261,10 +268,6 @@ extension MainViewController: UITableViewDelegate {
                 spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
                 self.tableView.tableFooterView = spinner
                 self.tableView.tableFooterView?.isHidden = false
-                
-                guard let next_p = pagination?.next, next_p.isEmpty == false else {
-                    return
-                }
                 self.presenter.loadNextPage(link: next_p)
             }
         }
