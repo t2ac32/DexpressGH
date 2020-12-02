@@ -96,7 +96,6 @@ extension MainPresenter: MainPresentation {
             self.view?.dismissSearch()
             self.view?.resultsFound(didFound: false)
             self.view?.hideTableLoader()
-            
         }
     }
 }
@@ -105,15 +104,21 @@ struct RepositoryItemViewModel {
     let title: String
     let avatarUrl: String
     let description: String
-    let followers: String
-    let forks: String
-    let watchers: String
+    let followers: String?
+    let forks: String?
+    let watchers: String?
     init(using repoModel: Item) {
         self.title = repoModel.name ?? ""
         self.avatarUrl = repoModel.owner?.avatarURL ?? "Na"
         self.description = repoModel.itemDescription ?? "No description found"
-        self.followers = Double(repoModel.stargazersCount ?? 0).unitFormatted()
-        self.forks =  Double(repoModel.forks ?? 0).unitFormatted()
-        self.watchers = Double(repoModel.watchers ?? 0).unitFormatted()
+        if repoModel.stargazersCount != 0 {
+            self.followers = Double(repoModel.stargazersCount ?? 0).unitFormatted()
+        } else { self.followers = nil }
+        if repoModel.forks != 0 {
+            self.forks = Double(repoModel.forks ?? 0).unitFormatted()
+        } else { self.forks = nil }
+        if repoModel.watchers != 0 {
+            self.watchers =  Double(repoModel.watchers ?? 0).unitFormatted()
+        } else { self.watchers = nil }
     }
 }

@@ -37,7 +37,6 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     private var queryOptions: [String] = []
     var pagination: Pagination?
     var isFiltering: Bool = false
-    
     // TODO: Pass is filtering to presenter
     var datasource: [RepositoryItemViewModel] = [] {
         didSet { self.tableView.reloadData() }
