@@ -9,9 +9,9 @@
 import UIKit
 import Foundation
 
-protocol MainViewInterface: class{
+protocol MainViewInterface: class {
     func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination)
-    func noResultsFound()
+    func resultsFound(didFound:Bool)
 }
 
 class MainViewController: UIViewController, UISearchBarDelegate {
@@ -21,10 +21,8 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     private var tableView: UITableView = { return UITableView() }()
     private var noResultsView: UIView = { return UIView() }()
     private var noResultsLbl: UILabel = { return UILabel() }()
-    
     private let navItem = UINavigationItem(title: "Home")
     let searchController = UISearchController(searchResultsController: nil)
-    
     private let apiOptions: [String] = ["Repos named ",
                                           "Repo owner is ",
                                           "Description contains ",
@@ -48,7 +46,6 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -86,20 +83,17 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         tableView.backgroundColor = .black
         tableView.dataSource = self
         tableView.delegate = self
-        // swiftlint:disable force_cast
         tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
-        // swiftlint:enable force_cast
         view.addSubview(tableView)
     }
     func configTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor
-            , constant: 0).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
     }
-    func setupNoResultsView(){
+    func setupNoResultsView() {
         view.addSubview(noResultsView)
         noResultsView.translatesAutoresizingMaskIntoConstraints = false
         noResultsView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
@@ -119,14 +113,6 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         noResultsLbl.text = "No results Found"
         noResultsLbl.textAlignment = .center
     }
-    func didFoundResults(didFound: Bool) {
-        if didFound {
-            tableView.isHidden = false
-        } else {
-            tableView.isHidden = true
-        }
-    }
-
 }
 
 // MARK: View Protocol
@@ -138,7 +124,6 @@ extension MainViewController: MainViewInterface {
     ///     - pagination: Pagination object if query has more than 30 results
     func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination) {
         //The fatched data is received here
-            didFoundResults(didFound: true)
             self.pagination = pagination
             if self.datasource.isEmpty {
                 self.datasource = repoList
@@ -147,10 +132,8 @@ extension MainViewController: MainViewInterface {
                 self.tableView.reloadData()
             }
     }
-    func noResultsFound() {
-        //The fatched data is received here
-        print("No items in response")
-        didFoundResults(didFound: false)
+    func resultsFound(didFound: Bool) {
+        tableView.isHidden = !didFound
     }
 }
 
@@ -198,7 +181,7 @@ extension MainViewController: UITableViewDataSource {
         if isFiltering { return 44 }
         return 101
     }
-    func get_option_cell(indexPath: IndexPath)  -> UITableViewCell{
+    func get_option_cell(indexPath: IndexPath)  -> UITableViewCell {
         // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "optionsCell", for: indexPath) as! OptionsCell
         // swiftlint:enable force_cast

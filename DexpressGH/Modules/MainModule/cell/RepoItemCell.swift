@@ -13,12 +13,9 @@ class RepoItemCell: UITableViewCell {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var watchersLabel: UILabel!
     @IBOutlet weak var followersLabel: UILabel!
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,7 +25,6 @@ class RepoItemCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    
     func configure(usingModel repoModel: RepositoryItemViewModel) {
         configAvatar(imageView: avatarImageView, url: repoModel.avatarUrl)
         // TODO: ADD a download method for url avatar image
@@ -38,12 +34,9 @@ class RepoItemCell: UITableViewCell {
         self.watchersLabel.text = repoModel.watchers
         self.followersLabel.text = repoModel.followers
     }
-    
-    func configAvatar(imageView: UIImageView, url:String) {
+    func configAvatar(imageView: UIImageView, url: String) {
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
         imageView.imageFromServerURL(url, placeHolder: UIImage(named: "user-placeholder"))
     }
-    
-    
 }

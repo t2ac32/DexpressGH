@@ -21,7 +21,6 @@ extension HTTPURLResponse {
             cleanPath = cleanPath.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
             paginationLinks[components[1]] = cleanPath
         })
-        
         if let pagination = try? Pagination(dictionary: paginationLinks) { return pagination}
         return Pagination(next: nil, previous: nil, first: nil, last: nil)
     }

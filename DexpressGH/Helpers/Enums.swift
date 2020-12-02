@@ -11,6 +11,3 @@ import Foundation
 enum Login: String, Codable {
     case t2Ac32 = "t2ac32"
 }
-
-
-

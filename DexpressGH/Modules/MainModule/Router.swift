@@ -9,9 +9,8 @@
 import UIKit
 import Foundation
 
-//MARK: Handle NAVIGATION Between screens.
+// MARK: Handle NAVIGATION Between screens.
 protocol MainViewRouting {
-    
 }
 
 class MainViewRouter {
@@ -20,5 +19,4 @@ class MainViewRouter {
 }
 
 extension MainViewRouter: MainViewRouting {
-    
 }

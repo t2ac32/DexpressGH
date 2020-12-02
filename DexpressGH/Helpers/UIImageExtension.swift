@@ -12,7 +12,6 @@ extension UIImageView {
 
     struct Holder {
         static var imageCache: NSCache<NSString, UIImage> = NSCache<NSString, UIImage>()
-        
     }
     var imageCache: NSCache<NSString, UIImage> {
         get {
@@ -35,9 +34,7 @@ extension UIImageView {
         }
 
         if let url = URL(string: imageServerUrl) {
-            URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-
-                //print("RESPONSE FROM API: \(response)")
+            URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) in
                 if error != nil {
                     print("ERROR LOADING IMAGES FROM URL: \(String(describing: error))")
                     DispatchQueue.main.async {

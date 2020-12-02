@@ -11,17 +11,22 @@ import Foundation
 // MARK: - URLSession response handlers
 
 extension URLSession {
-    fileprivate func codableTask<T: Codable>(with url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    fileprivate func codableTask<T: Codable, U: Codable>(with url: URL, completionHandler: @escaping (T?, URLResponse?, U?) -> Void) -> URLSessionDataTask {
         return self.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
-                completionHandler(nil, response, error)
+                completionHandler(nil, response, nil)
                 return
             }
-            completionHandler(try? newJSONDecoder().decode(T.self, from: data), response, nil)
+            if let repos = try? newJSONDecoder().decode(T?.self, from: data) {
+                completionHandler(repos, response, nil)
+            } else {
+                completionHandler(nil, response, try? newJSONDecoder().decode(U.self, from: data))
+            }
         }
     }
 
-    func repositoriesTask(with url: URL, completionHandler: @escaping (Repositories?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    func repositoriesTask(with url: URL, completionHandler: @escaping (Repositories?, URLResponse?, ResponseError?) -> Void) -> URLSessionDataTask {
         return self.codableTask(with: url, completionHandler: completionHandler)
     }
+
 }

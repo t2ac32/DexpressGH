@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: Manipulates data and use cases
 protocol MainViewInteractorInput {
-    func getRepositories(for keywords: [String], with qualifiers: [String:String], completion: @escaping(RepositoriesClosure)) -> Void
-    func getNextPage(pagination:String, completion: @escaping(RepositoriesClosure)) -> Void
+    func getRepositories(for keywords: [String], with qualifiers: [String: String], completion: @escaping(RepositoriesClosure))
+    func getNextPage(pagination: String, completion: @escaping(RepositoriesClosure))
 }
 
 class MainViewInteractor {
@@ -28,7 +28,6 @@ extension MainViewInteractor: MainViewInteractorInput {
             completion(repositories, pagination)
         }
     }
-    
     func getNextPage(pagination: String, completion: @escaping (RepositoriesClosure)) {
         //TODO: SEND RESULTS TO VIE
         self.service.fetchNextPage(link: pagination) { (repositories, pagination) -> Void in

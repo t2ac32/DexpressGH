@@ -50,13 +50,15 @@ extension MainPresenter: MainPresentation {
                 guard let items = results.items, items.count > 0 else {
                     print("Error Searching for Repos")
                     DispatchQueue.main.async {
-                        self?.view?.noResultsFound()
+                        print("No items in response")
+                        self?.view?.resultsFound(didFound: false)
                     }
                     return
                 }
                 let repolist = self!.getRepoItem(items: items)
                 DispatchQueue.main.async {
                     self?.view?.updateResults(repoList: repolist, pagination: pagination)
+                    self?.view?.resultsFound(didFound: true)
                 }
             })
         }
@@ -74,8 +76,7 @@ extension MainPresenter: MainPresentation {
                 let repolist = self!.getRepoItem(items: items)
                 DispatchQueue.main.async {
                     self?.view?.updateResults(repoList: repolist, pagination: pagination)
-                }
-            })
+                }            })
         }
     }
 }
