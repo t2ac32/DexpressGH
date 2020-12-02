@@ -86,7 +86,9 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         tableView.backgroundColor = .black
         tableView.dataSource = self
         tableView.delegate = self
+        // swiftlint:disable force_cast
         tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
+        // swiftlint:enable force_cast
         view.addSubview(tableView)
     }
     func configTableView() {
@@ -182,7 +184,9 @@ extension MainViewController: UITableViewDataSource {
             return get_option_cell(indexPath: indexPath)
         }
         let repoItem = self.datasource[indexPath.row]
+        // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: MainViewController.repositoryCellID, for: indexPath) as! RepoItemCell
+        // swiftlint:enable force_cast
 
         cell.configure(usingModel: repoItem)
         return cell
@@ -195,7 +199,9 @@ extension MainViewController: UITableViewDataSource {
         return 101
     }
     func get_option_cell(indexPath: IndexPath)  -> UITableViewCell{
+        // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "optionsCell", for: indexPath) as! OptionsCell
+        // swiftlint:enable force_cast
         var searchOption = ""
         if isFiltering {
             searchOption = self.queryOptions[indexPath.row]

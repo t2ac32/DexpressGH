@@ -29,19 +29,14 @@ class RepoItemCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(usingModel repoModel: RepositoryItemViewModel) -> Void {
-        self.contentView.layer.cornerRadius = 8
-        self.contentView.layer.masksToBounds = true
-        
+    func configure(usingModel repoModel: RepositoryItemViewModel) {
         configAvatar(imageView: avatarImageView, url: repoModel.avatarUrl)
-        
-        //TODO: ADD a download method for url avatar image
+        // TODO: ADD a download method for url avatar image
         self.titleLabel.text = repoModel.title
         self.descriptionLabel.text = repoModel.description
         self.forksLabel.text = repoModel.forks
         self.watchersLabel.text = repoModel.watchers
         self.followersLabel.text = repoModel.followers
-        
     }
     
     func configAvatar(imageView: UIImageView, url:String) {

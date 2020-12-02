@@ -10,7 +10,7 @@ import Foundation
 
 protocol MainPresentation {
     func viewDidLoad()
-    func searchRepos(for keywords: [String], with qualifiers:[String: String])
+    func searchRepos(for keywords: [String], with qualifiers: [String: String])
     func loadNextPage(link: String)
 }
 
@@ -44,7 +44,7 @@ extension MainPresenter: MainPresentation {
             })
         }
     }
-    func searchRepos(for keywords: [String], with qualifiers:[String: String] ) {
+    func searchRepos(for keywords: [String], with qualifiers: [String: String] ) {
         DispatchQueue.global(qos: .background).async {[weak self] in
             self?.interactor?.getRepositories(for: keywords, with: qualifiers, completion: { (results, pagination) -> Void in
                 guard let items = results.items, items.count > 0 else {
@@ -63,7 +63,7 @@ extension MainPresenter: MainPresentation {
     }
 
     func loadNextPage(link: String) {
-        //TODO: UPDATE Data Source
+        // TODO: UPDATE Data Source
         print(link)
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.interactor?.getNextPage(pagination: link, completion: { (results, pagination) -> Void in

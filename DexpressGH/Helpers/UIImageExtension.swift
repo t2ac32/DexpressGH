@@ -11,16 +11,16 @@ import Foundation
 extension UIImageView {
 
     struct Holder {
-        static var _imageCache: NSCache<NSString, UIImage> = NSCache<NSString, UIImage>()
+        static var imageCache: NSCache<NSString, UIImage> = NSCache<NSString, UIImage>()
         
     }
     var imageCache: NSCache<NSString, UIImage> {
         get {
-            return Holder._imageCache
+            return Holder.imageCache
         }
         
-        set(newValue){
-            Holder._imageCache = newValue
+        set(newValue) {
+            Holder.imageCache = newValue
         }
     }
 
