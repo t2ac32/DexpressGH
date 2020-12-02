@@ -13,9 +13,9 @@ typealias LocalRepositoryClosure = (Repositories) -> Void
 
 protocol GitHubApi {
     var endpoint: String { get }
-    func fetchRepositories(keywords: [String], with qualifiers: [String: String], completion: @escaping(RepositoriesClosure))
+    func fetchRepositories(from path: String, completion: @escaping(RepositoriesClosure))
     func fetchRepositoriesFromJson( completion: @escaping(LocalRepositoryClosure))
-    func fetchNextPage(link: String, completion: @escaping(RepositoriesClosure))
+    func buildPath(from keywords: [String], qualifiers: [String: String]) -> String
 }
 
 class GitHubServiceImpl {
@@ -27,6 +27,9 @@ class GitHubServiceImpl {
         }
         return URL(string: endpoint + path)
     }
+}
+
+extension GitHubServiceImpl: GitHubApi {
     func buildPath(from keywords: [String], qualifiers: [String: String]) -> String {
         var path: String = ""
         path = keywords.joined(separator: "+")
@@ -42,11 +45,7 @@ class GitHubServiceImpl {
         }
         return path
     }
-}
-
-extension GitHubServiceImpl: GitHubApi {
-    func fetchRepositories(keywords: [String], with qualifiers: [String: String], completion: @escaping (RepositoriesClosure)) {
-        let path = buildPath(from: keywords, qualifiers: qualifiers)
+    func fetchRepositories(from path: String, completion: @escaping (RepositoriesClosure)) {
         guard let url = requestUrl(path: path) else {
             print("Error getting Request URL")
             return
@@ -77,26 +76,5 @@ extension GitHubServiceImpl: GitHubApi {
                 print("Could not get data from local json file")
             }
         }
-    }
-    func fetchNextPage(link: String, completion: @escaping (RepositoriesClosure)) {
-        guard let url = self.requestUrl(path: link) else {
-            return
-        }
-        let task = URLSession.shared.repositoriesTask(with: url) { repositories, response, error in
-            guard let repositories = repositories else {
-                if let errMessage = error?.message {
-                    print(errMessage)
-                    return
-                }
-                print("Error fetching Next Page")
-                return
-            }
-            if let httpResponse = response as? HTTPURLResponse {
-                let paginationDict =
-                httpResponse.extractPagination(with: "Link")
-                completion(repositories, paginationDict)
-            }
-        }
-        task.resume()
     }
 }

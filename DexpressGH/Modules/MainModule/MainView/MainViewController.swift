@@ -10,35 +10,35 @@ import UIKit
 import Foundation
 
 protocol MainViewInterface: class {
-    func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination)
-    func resultsFound(didFound:Bool)
+    func reloadData(isFiltering: Bool)
+    func resultsFound(didFound: Bool)
+    func showTableLoader()
+    func hideTableLoader()
+    func dismissSearch()
+    func setDataSource(repoList: [RepositoryItemViewModel])
+    func updateDataSource(repoList: [RepositoryItemViewModel])
+    func updatePagination(pagination: Pagination)
+    func updateQueryOptions(options: [String])
 }
 
 class MainViewController: UIViewController, UISearchBarDelegate {
     // Reference to presenter
     private var presenter: MainPresentation
     // MARK: Views initialization
-    private var tableView: UITableView = { return UITableView() }()
-    private var noResultsView: UIView = { return UIView() }()
-    private var noResultsLbl: UILabel = { return UILabel() }()
+    private var tableView: UITableView = UITableView()
+    private var noResultsView: UIView = UIView()
+    private var noResultsLbl: UILabel = UILabel()
     private let navItem = UINavigationItem(title: "Home")
+    private let spinner = UIActivityIndicatorView(style: .medium)
     let searchController = UISearchController(searchResultsController: nil)
-    private let apiOptions: [String] = ["Repos named ",
-                                          "Repo owner is ",
-                                          "Description contains ",
-                                          "Read Me contains "]
     // MARK: Functional Vars and constants
     private static let repositoryCellID = "repoItemCell"
     private static let optionsCellID = "optionsCell"
-    var queryOptions: [String] = []
+    private var queryOptions: [String] = []
     var pagination: Pagination?
-    var isSearchBarEmpty: Bool {
-      return searchController.searchBar.text?.isEmpty ?? true
-    }
+    var isFiltering: Bool = false
+    
     // TODO: Pass is filtering to presenter
-    var isFiltering: Bool {
-      return searchController.isActive && !isSearchBarEmpty
-    }
     var datasource: [RepositoryItemViewModel] = [] {
         didSet { self.tableView.reloadData() }
     }
@@ -83,6 +83,7 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         tableView.backgroundColor = .black
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         tableView.register(UINib(nibName: "RepoItemCell", bundle: nil), forCellReuseIdentifier: MainViewController.repositoryCellID)
         view.addSubview(tableView)
     }
@@ -117,23 +118,39 @@ class MainViewController: UIViewController, UISearchBarDelegate {
 
 // MARK: View Protocol
 extension MainViewController: MainViewInterface {
-    /// Receives results from presenter
-    ///
-    /// - Parameters:
-    ///     - repoList: array containing repo object to be displayed
-    ///     - pagination: Pagination object if query has more than 30 results
-    func updateResults(repoList: [RepositoryItemViewModel], pagination: Pagination) {
-        //The fatched data is received here
-            self.pagination = pagination
-            if self.datasource.isEmpty {
-                self.datasource = repoList
-            } else {
-                self.datasource.append(contentsOf: repoList)
-                self.tableView.reloadData()
-            }
+    /// Updates Serachbar query options acoording to keywords
+    func updateQueryOptions(options: [String]) {
+        queryOptions = options
+    }
+    func reloadData(isFiltering: Bool) {
+        self.isFiltering = isFiltering
+        self.tableView.reloadData()
+    }
+    func dismissSearch() {
+        self.searchController.isActive = false
+    }
+    func setDataSource(repoList: [RepositoryItemViewModel]) {
+        self.datasource = repoList
+    }
+    func updateDataSource(repoList: [RepositoryItemViewModel]) {
+        self.datasource.append(contentsOf: repoList)
+    }
+    func updatePagination(pagination: Pagination) {
+        self.pagination = pagination
     }
     func resultsFound(didFound: Bool) {
         tableView.isHidden = !didFound
+    }
+    func showTableLoader() {
+        spinner.color = UIColor.tracerGreen
+        spinner.startAnimating()
+        spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+        self.tableView.tableFooterView = spinner
+        self.tableView.tableFooterView?.isHidden = false
+    }
+    func hideTableLoader() {
+        spinner.stopAnimating()
+        self.tableView.tableFooterView?.isHidden = true
     }
 }
 
@@ -141,15 +158,7 @@ extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         tableView.isHidden = false
         let searchBar = searchController.searchBar
-        filterContentForSearchText(searchBar.text!)
-    }
-
-    func filterContentForSearchText(_ searchText: String) {
-        queryOptions = []
-        for option in apiOptions {
-            queryOptions.append(option + searchText)
-        }
-        tableView.reloadData()
+        self.presenter.updateQueryOptions(searchText: searchBar.text!)
     }
 }
 
@@ -161,7 +170,6 @@ extension MainViewController: UITableViewDataSource {
         }
         return self.datasource.count
     }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isFiltering {
             return get_option_cell(indexPath: indexPath)
@@ -170,7 +178,6 @@ extension MainViewController: UITableViewDataSource {
         // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: MainViewController.repositoryCellID, for: indexPath) as! RepoItemCell
         // swiftlint:enable force_cast
-
         cell.configure(usingModel: repoItem)
         return cell
     }
@@ -181,15 +188,13 @@ extension MainViewController: UITableViewDataSource {
         if isFiltering { return 44 }
         return 101
     }
-    func get_option_cell(indexPath: IndexPath)  -> UITableViewCell {
+    func get_option_cell(indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "optionsCell", for: indexPath) as! OptionsCell
         // swiftlint:enable force_cast
         var searchOption = ""
         if isFiltering {
-            searchOption = self.queryOptions[indexPath.row]
-        } else {
-            searchOption = self.apiOptions[indexPath.row]
+            searchOption = queryOptions[indexPath.row]
         }
         cell.configure(withOptions: searchOption)
         return cell
@@ -197,15 +202,15 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering {
             let searchBar = searchController.searchBar
+            self.presenter.isSearching(active: false, hasText: searchBar.text?.isEmpty ?? true)
             let keywords = searchBar.text!.components(separatedBy: " ")
-            self.searchController.isActive = false
             self.datasource = []
             switch indexPath.row {
             case 0:
                 //presenter -> router search reponame
                 presenter.searchRepos(for: keywords, with: ["in": "name"])
             case 1:
-                presenter.searchRepos(for: keywords, with: ["user": "username"])
+                presenter.searchRepos(for: [], with: ["user": searchBar.text!])
             case 2:
                 presenter.searchRepos(for: keywords, with: ["in": "description"])
             case 3:
@@ -219,23 +224,20 @@ extension MainViewController: UITableViewDataSource {
 
 // MARK: TABLE VIEW DELEGATE
 extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+}
+
+extension MainViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         guard let nextPage = pagination?.next, nextPage.isEmpty == false else {
             return
         }
         if isFiltering == false {
-            let lastSectionIndex = tableView.numberOfSections - 1
-            let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
-            if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
-                // print("this is the last cell")
-                let spinner = UIActivityIndicatorView(style: .medium)
-                spinner.color = UIColor.tracerGreen
-                spinner.startAnimating()
-                spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
-                self.tableView.tableFooterView = spinner
-                self.tableView.tableFooterView?.isHidden = false
-                self.presenter.loadNextPage(link: nextPage)
+            let needsFetch = indexPaths.contains { $0.row == self.datasource.count - 2 }
+            if needsFetch { // show request next page and show spinner
+                self.presenter.requestNextPage(link: nextPage)
             }
         }
+    }
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
     }
 }

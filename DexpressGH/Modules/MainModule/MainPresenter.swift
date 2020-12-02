@@ -8,16 +8,26 @@
 
 import Foundation
 
-protocol MainPresentation {
+protocol MainPresentation: class {
     func viewDidLoad()
     func searchRepos(for keywords: [String], with qualifiers: [String: String])
-    func loadNextPage(link: String)
+    func requestNextPage(link: String)
+    func loadResults(repositories: [Item], pagination: Pagination)
+    func noResultsFound()
+    func updateQueryOptions(searchText: String)
+    func isSearching(active: Bool, hasText: Bool)
 }
 
 class MainPresenter {
     weak var view: MainViewInterface?
     var interactor: MainViewInteractorInput?
     var router: MainViewRouting?
+    private var isFiltering: Bool = false
+    private var queryOptions: [String] = []
+    private let apiOptions: [String] = ["Repos named ",
+                                        "Repo owner is ",
+                                        "Description contains ",
+                                        "Read Me contains "]
     init(interactor: MainViewInteractorInput, router: MainViewRouting) {
         self.interactor = interactor
         self.router = router
@@ -32,51 +42,61 @@ extension MainPresenter: MainPresentation {
     //Mocks our view viewdidLoad method
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.interactor?.getRepositories(for: [""], with: ["user": "t2ac32"], completion: {(results, pagination) in
-                guard let items = results.items, items.count > 0 else {
-                    print("No items in response")
-                    return
-                }
-                let reposList = self!.getRepoItem(items: items)
-                DispatchQueue.main.async {
-                    self?.view?.updateResults(repoList: reposList, pagination: pagination)
-                }
-            })
+            self?.interactor?.getRepositories(for: [""], with: ["user": "t2ac32"])
         }
+    }
+    func isSearching(active: Bool, hasText: Bool) {
+        if active && hasText {
+            isFiltering = active
+        } else { isFiltering = false }
+    }
+    func updateQueryOptions(searchText: String) {
+        var queryOptions: [String] = []
+        for option in apiOptions {
+            queryOptions.append(option + searchText)
+        }
+        self.view?.updateQueryOptions(options: queryOptions)
+        self.view?.reloadData(isFiltering: true)
     }
     func searchRepos(for keywords: [String], with qualifiers: [String: String] ) {
+        DispatchQueue.main.async {
+            self.view?.reloadData(isFiltering: self.isFiltering)
+            self.view?.showTableLoader()
+        }
         DispatchQueue.global(qos: .background).async {[weak self] in
-            self?.interactor?.getRepositories(for: keywords, with: qualifiers, completion: { (results, pagination) -> Void in
-                guard let items = results.items, items.count > 0 else {
-                    print("Error Searching for Repos")
-                    DispatchQueue.main.async {
-                        print("No items in response")
-                        self?.view?.resultsFound(didFound: false)
-                    }
-                    return
-                }
-                let repolist = self!.getRepoItem(items: items)
-                DispatchQueue.main.async {
-                    self?.view?.updateResults(repoList: repolist, pagination: pagination)
-                    self?.view?.resultsFound(didFound: true)
-                }
-            })
+            self?.interactor?.getRepositories(for: keywords, with: qualifiers)
         }
     }
-
-    func loadNextPage(link: String) {
-        // TODO: UPDATE Data Source
-        print(link)
+    func requestNextPage(link: String) {
+        DispatchQueue.main.async {
+            self.view?.showTableLoader()
+        }
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.interactor?.getNextPage(pagination: link, completion: { (results, pagination) -> Void in
-                guard let items = results.items, items.count > 0 else {
-                    print("No items in response")
-                    return
-                }
-                let repolist = self!.getRepoItem(items: items)
-                DispatchQueue.main.async {
-                    self?.view?.updateResults(repoList: repolist, pagination: pagination)
-                }            })
+            self?.interactor?.getNextPage(pagination: link)
+        }
+    }
+    func loadResults(repositories: [Item], pagination: Pagination) {
+        let reposList = self.getRepoItem(items: repositories)
+        DispatchQueue.main.async {
+            self.view?.hideTableLoader()
+            if pagination.previous != nil {
+                self.view?.setDataSource(repoList: reposList)
+            } else {
+                self.view?.updateDataSource(repoList: reposList)
+            }
+            self.view?.updatePagination(pagination: pagination)
+            self.view?.resultsFound(didFound: true)
+            self.view?.dismissSearch()
+            self.view?.reloadData(isFiltering: self.isFiltering)
+            
+        }
+    }
+    func noResultsFound() {
+        DispatchQueue.main.async {
+            self.view?.dismissSearch()
+            self.view?.resultsFound(didFound: false)
+            self.view?.hideTableLoader()
+            
         }
     }
 }

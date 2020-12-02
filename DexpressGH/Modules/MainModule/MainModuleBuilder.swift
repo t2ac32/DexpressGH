@@ -17,6 +17,7 @@ class MainModuleBuilder {
         let controller = MainViewController(presenter: presenter)
         router.view = controller
         presenter.view = controller
+        interactor.presenter = presenter
 
         return controller
     }

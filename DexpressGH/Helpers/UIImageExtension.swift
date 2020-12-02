@@ -17,7 +17,6 @@ extension UIImageView {
         get {
             return Holder.imageCache
         }
-        
         set(newValue) {
             Holder.imageCache = newValue
         }
