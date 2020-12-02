@@ -10,9 +10,20 @@ import Foundation
 
 extension HTTPURLResponse {
     func extractPagination(with header: String) -> Pagination {
-        guard let linkHeader = self.value(forHTTPHeaderField: header) else {
-            return Pagination(next: nil, previous: nil, first: nil, last: nil)
+        if #available(iOS 13.0, *) {
+            guard let headerValue = self.value(forHTTPHeaderField: header) else {
+                return Pagination(next: nil, previous: nil, first: nil, last: nil)
+            }
+            return createPagination(with: headerValue)
+        } else {
+            // Fallback on earlier versions
+            guard let headerValue = self.allHeaderFields[header] as? String else {
+                return Pagination(next: nil, previous: nil, first: nil, last: nil)
+            }
+            return createPagination(with: headerValue)
         }
+    }
+    func createPagination(with linkHeader: String) -> Pagination {
         let links = linkHeader.components(separatedBy: ",")
         var paginationLinks: [String: String] = [:]
         links.forEach({

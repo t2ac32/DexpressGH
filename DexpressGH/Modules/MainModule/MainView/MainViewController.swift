@@ -29,7 +29,7 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     private var noResultsView: UIView = UIView()
     private var noResultsLbl: UILabel = UILabel()
     private let navItem = UINavigationItem(title: "Home")
-    private let spinner = UIActivityIndicatorView(style: .medium)
+    private let spinner = UIActivityIndicatorView(style: .gray)
     let searchController = UISearchController(searchResultsController: nil)
     // MARK: Functional Vars and constants
     private static let repositoryCellID = "repoItemCell"
@@ -156,7 +156,6 @@ extension MainViewController: MainViewInterface {
 
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        tableView.isHidden = false
         let searchBar = searchController.searchBar
         self.presenter.updateQueryOptions(searchText: searchBar.text!)
     }
