@@ -15,16 +15,15 @@ protocol RepoDetailPresenterInterface {
 class RepoDetailPresenter {
     weak var view: RepoDetailViewInterface?
     var repo: RepositoryItemViewModel
-    // MARK: Interactor
-    // MARK: Router
-    
-    init(repo: RepositoryItemViewModel) {
+    var interactor: RepoDetailInteractorInterface
+    // TODO: Declare Router
+    init(repo: RepositoryItemViewModel, interactor: RepoDetailInteractorInterface) {
         self.repo = repo
+        self.interactor = interactor
     }
 }
 
 extension RepoDetailPresenter: RepoDetailPresenterInterface {
     func viewDidLoad() {
-        
     }
 }
