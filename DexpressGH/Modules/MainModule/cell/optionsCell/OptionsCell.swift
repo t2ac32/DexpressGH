@@ -27,8 +27,8 @@ class OptionsCell: UITableViewCell {
     func configure(withOptions option: String) {
         
         self.optionTextLbl.text = option
-        self.backgroundColor = UIColor.tracer_gray
-        self.optionTextLbl.textColor = UIColor.tracer_Green
+        self.backgroundColor = UIColor.tracerGray
+        self.optionTextLbl.textColor = UIColor.tracerGreen
         //TODO: add image according to option
         
     }

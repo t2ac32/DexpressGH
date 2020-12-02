@@ -9,8 +9,7 @@
 import Foundation
 
 struct Pagination {
-    let next, previous,first, last: String?
-    
+    let next, previous, first, last: String?
 }
 extension Pagination: Codable {
     init(dictionary: [String: String]) throws {
@@ -25,6 +24,10 @@ extension Pagination: Codable {
 }
 extension Pagination: CustomStringConvertible {
     var description: String {
-        return "Next Page: \(next ?? "") \n " + "previous Page: \(previous ?? "") \n " + "first Page: \(first ?? "") \n" +  "\n last Page: \(last ?? "")"
+        let nxt = "Next Page: \(next ?? "")\n"
+        let prev = "Next Page: \(previous ?? "")\n"
+        let frst = "first Page: \(first ?? "")\n"
+        let lst = "last Page: \(last ?? "")"
+        return  nxt + prev + frst + lst
     }
 }

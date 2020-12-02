@@ -9,27 +9,20 @@
 import Foundation
 
 extension HTTPURLResponse {
-    
-    func extractPagination(with header : String) -> Pagination{
+    func extractPagination(with header: String) -> Pagination {
         guard let linkHeader = self.value(forHTTPHeaderField: header) else {
             return Pagination(next: nil, previous: nil, first: nil, last: nil)
         }
-        
         let links = linkHeader.components(separatedBy: ",")
-
-        var pagination_links: [String: String] = [:]
+        var paginationLinks: [String: String] = [:]
         links.forEach({
-            let components = $0.components(separatedBy:"; ")
+            let components = $0.components(separatedBy: "; ")
             var cleanPath = components[0].trimmingCharacters(in: .whitespaces)
             cleanPath = cleanPath.trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
-            pagination_links[components[1]] = cleanPath
+            paginationLinks[components[1]] = cleanPath
         })
         
-        if let pagination = try? Pagination(dictionary: pagination_links) { return pagination}
-        
+        if let pagination = try? Pagination(dictionary: paginationLinks) { return pagination}
         return Pagination(next: nil, previous: nil, first: nil, last: nil)
     }
-    
-
-    
 }

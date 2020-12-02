@@ -17,18 +17,17 @@ import Foundation
 // MARK: - Owner
 struct Owner: Codable {
     let login: String?
-    let id: Int?
+    let idx: Int?
     let avatarURL: String?
     let gravatarID: String?
     let url, htmlURL, followersURL: String?
     let subscriptionsURL, organizationsURL, reposURL: String?
-    
     let receivedEventsURL: String?
-    
     let siteAdmin: Bool?
 
     enum CodingKeys: String, CodingKey {
-        case login, id
+        case login
+        case idx = "id"
         case avatarURL = "avatar_url"
         case gravatarID
         case url
@@ -62,7 +61,7 @@ extension Owner {
 
     func with(
         login: String?? = nil,
-        id: Int?? = nil,
+        idx: Int?? = nil,
         avatarURL: String?? = nil,
         gravatarID: String?? = nil,
         url: String?? = nil,
@@ -76,7 +75,7 @@ extension Owner {
     ) -> Owner {
         return Owner(
             login: login ?? self.login,
-            id: id ?? self.id,
+            idx: idx ?? self.idx,
             avatarURL: avatarURL ?? self.avatarURL,
             gravatarID: gravatarID ?? self.gravatarID,
             url: url ?? self.url,

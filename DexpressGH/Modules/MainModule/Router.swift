@@ -16,7 +16,7 @@ protocol MainViewRouting {
 
 class MainViewRouter {
     //instatiate the view to be routed
-    weak var view: MainView?
+    weak var view: MainViewInterface?
 }
 
 extension MainViewRouter: MainViewRouting {

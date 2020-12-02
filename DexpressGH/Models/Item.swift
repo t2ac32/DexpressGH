@@ -16,7 +16,7 @@ import Foundation
 
 // MARK: - Item
 struct Item: Codable {
-    let id: Int?
+    let idx: Int?
     let name, fullName: String?
     let owner: Owner?
     let itemDescription: String?
@@ -28,7 +28,7 @@ struct Item: Codable {
     let forks, watchers: Int?
 
     enum CodingKeys: String, CodingKey {
-        case id
+        case idx = "id"
         case name
         case fullName
         case owner
@@ -62,7 +62,7 @@ extension Item {
     }
 
     func with(
-        id: Int?? = nil,
+        idx: Int?? = nil,
         name: String?? = nil,
         fullName: String?? = nil,
         owner: Owner?? = nil,
@@ -77,7 +77,7 @@ extension Item {
         watchers: Int?? = nil
     ) -> Item {
         return Item(
-            id: id ?? self.id,
+            idx: idx ?? self.idx,
             name: name ?? self.name,
             fullName: fullName ?? self.fullName,
             owner: owner ?? self.owner,

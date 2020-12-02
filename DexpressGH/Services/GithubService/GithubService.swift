@@ -37,18 +37,17 @@ class GitHubServiceImpl {
         }
         return url
     }
-    
-    func buildPath(from keywords: [String], qualifiers:[String:String]) -> String{
+    func buildPath(from keywords: [String], qualifiers:[String:String]) -> String {
         var path:String = ""
         path = keywords.joined(separator: "+")
         if qualifiers.isEmpty == false {
-            for k in qualifiers.keys {
-                guard let qualifier = qualifiers[k] else {
+            for key in qualifiers.keys {
+                guard let qualifier = qualifiers[key] else {
                     print("error appending qualifier value")
                     return path
                 }
-                let q = "+" + k + ":" + qualifier
-                path.append(q)
+                let query = "+" + key + ":" + qualifier
+                path.append(query)
             }
         }
         return path
@@ -86,9 +85,9 @@ extension GitHubServiceImpl: GitHubApi {
                 return
             }
             if let httpResponse = response as? HTTPURLResponse {
-                let pagination_dict =
+                let paginationDict =
                 httpResponse.extractPagination(with: "Link")
-                completion(repositories, pagination_dict)
+                completion(repositories, paginationDict)
             }
         }
         task.resume()
@@ -108,9 +107,9 @@ extension GitHubServiceImpl: GitHubApi {
                 return
             }
             if let httpResponse = response as? HTTPURLResponse {
-                let pagination_dict =
+                let paginationDict =
                 httpResponse.extractPagination(with: "Link")
-                completion(repositories, pagination_dict)
+                completion(repositories, paginationDict)
             }
         }
         task.resume()
@@ -140,9 +139,9 @@ extension GitHubServiceImpl: GitHubApi {
                 return
             }
             if let httpResponse = response as? HTTPURLResponse {
-                let pagination_dict =
+                let paginationDict =
                 httpResponse.extractPagination(with: "Link")
-                completion(repositories, pagination_dict)
+                completion(repositories, paginationDict)
             }
         }
         task.resume()

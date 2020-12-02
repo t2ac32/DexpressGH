@@ -8,16 +8,14 @@
 
 import Foundation
 
-// MARK: Manipulates data and use cases, Handles input from presenter and sends it back again to presenter and then to viewcontroller.
+// MARK: Manipulates data and use cases
 protocol MainViewInteractorInput {
-    func getRepositories(for keywords:[String], with qualifiers: [String:String], completion: @escaping(RepositoriesClosure)) -> (Void)
-    func getNextPage(pagination:String, completion: @escaping(RepositoriesClosure)) -> (Void)
+    func getRepositories(for keywords: [String], with qualifiers: [String:String], completion: @escaping(RepositoriesClosure)) -> Void
+    func getNextPage(pagination:String, completion: @escaping(RepositoriesClosure)) -> Void
 }
-
 
 class MainViewInteractor {
     var service: GitHubApi
-    
     //inyect the protocl not the full service
     init(service: GitHubApi) {
         self.service = service
@@ -25,18 +23,15 @@ class MainViewInteractor {
 }
 
 extension MainViewInteractor: MainViewInteractorInput {
-    
-    
-    func getRepositories(for keywords: [String], with qualifiers: [String : String], completion: @escaping (RepositoriesClosure)) {
-        
-        self.service.fetchRepositories(keywords: keywords, with: qualifiers) { (repositories, pagination) -> (Void) in
+    func getRepositories(for keywords: [String], with qualifiers: [String: String], completion: @escaping (RepositoriesClosure)) {
+        self.service.fetchRepositories(keywords: keywords, with: qualifiers) { (repositories, pagination) -> Void in
             completion(repositories, pagination)
         }
     }
     
     func getNextPage(pagination: String, completion: @escaping (RepositoriesClosure)) {
         //TODO: SEND RESULTS TO VIE
-        self.service.fetchNextPage(link: pagination) { (repositories, pagination) -> (Void) in
+        self.service.fetchNextPage(link: pagination) { (repositories, pagination) -> Void in
             completion(repositories, pagination)
         }
     }
