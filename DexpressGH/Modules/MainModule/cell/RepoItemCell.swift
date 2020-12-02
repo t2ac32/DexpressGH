@@ -58,6 +58,7 @@ class RepoItemCell: UITableViewCell {
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
         imageView.imageFromServerURL(url, placeHolder: UIImage(named: "user-placeholder"))
+    
     }
     func hideView(view: UIView) {
         view.isHidden = true

@@ -5,7 +5,7 @@
 //  Created by Tracer on 28/11/20.
 //  Copyright © 2020 Tracer. All rights reserved.
 //
-
+import UIKit
 import Foundation
 
 protocol MainPresentation: class {
@@ -16,6 +16,7 @@ protocol MainPresentation: class {
     func noResultsFound()
     func updateQueryOptions(searchText: String)
     func isSearching(active: Bool, hasText: Bool)
+    func showRepoDetailController(navigationController: UINavigationController)
 }
 
 class MainPresenter {
@@ -35,6 +36,9 @@ class MainPresenter {
     private func getRepoItem(items: [Item]) -> [RepositoryItemViewModel] {
         let repolist = items.compactMap({ RepositoryItemViewModel(using: $0) })
         return repolist
+    }
+    func showRepoDetailController(navigationController: UINavigationController) {
+        router?.pushToRepoDetail(navigationConroller: navigationController)
     }
 }
 

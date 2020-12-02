@@ -13,6 +13,10 @@
 		5238066F2571852E00A64D49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5238066D2571852E00A64D49 /* LaunchScreen.storyboard */; };
 		5238067A2571852F00A64D49 /* DexpressGHTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806792571852F00A64D49 /* DexpressGHTests.swift */; };
 		523806852571852F00A64D49 /* DexpressGHUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806842571852F00A64D49 /* DexpressGHUITests.swift */; };
+		524261AA25784631003160F7 /* ImagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261A925784631003160F7 /* ImagesAPI.swift */; };
+		524261B125785131003160F7 /* RepoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261B025785131003160F7 /* RepoDetailViewController.swift */; };
+		524261B3257851DA003160F7 /* RepoDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261B2257851DA003160F7 /* RepoDetailPresenter.swift */; };
+		524261B5257854B8003160F7 /* RepoDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261B4257854B8003160F7 /* RepoDetailInteractor.swift */; };
 		52429DF6257274E600735D7D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF5257274E600735D7D /* MainViewController.swift */; };
 		52429DF8257275B400735D7D /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF7257275B400735D7D /* MainPresenter.swift */; };
 		52429DFA2572760200735D7D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF92572760200735D7D /* Router.swift */; };
@@ -71,6 +75,10 @@
 		523806802571852F00A64D49 /* DexpressGHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DexpressGHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		523806842571852F00A64D49 /* DexpressGHUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexpressGHUITests.swift; sourceTree = "<group>"; };
 		523806862571852F00A64D49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		524261A925784631003160F7 /* ImagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesAPI.swift; sourceTree = "<group>"; };
+		524261B025785131003160F7 /* RepoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailViewController.swift; sourceTree = "<group>"; };
+		524261B2257851DA003160F7 /* RepoDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailPresenter.swift; sourceTree = "<group>"; };
+		524261B4257854B8003160F7 /* RepoDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailInteractor.swift; sourceTree = "<group>"; };
 		52429DF5257274E600735D7D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		52429DF7257275B400735D7D /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		52429DF92572760200735D7D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -181,9 +189,60 @@
 			path = DexpressGHUITests;
 			sourceTree = "<group>";
 		};
+		524261A8257845E6003160F7 /* ImagesService */ = {
+			isa = PBXGroup;
+			children = (
+				524261A925784631003160F7 /* ImagesAPI.swift */,
+			);
+			path = ImagesService;
+			sourceTree = "<group>";
+		};
+		524261AB25784F64003160F7 /* DetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				524261AF25784FA5003160F7 /* interactor */,
+				524261AE25784F97003160F7 /* presenter */,
+				524261AD25784F8B003160F7 /* router */,
+				524261AC25784F7E003160F7 /* view */,
+			);
+			path = DetailModule;
+			sourceTree = "<group>";
+		};
+		524261AC25784F7E003160F7 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				524261B025785131003160F7 /* RepoDetailViewController.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		524261AD25784F8B003160F7 /* router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = router;
+			sourceTree = "<group>";
+		};
+		524261AE25784F97003160F7 /* presenter */ = {
+			isa = PBXGroup;
+			children = (
+				524261B2257851DA003160F7 /* RepoDetailPresenter.swift */,
+			);
+			path = presenter;
+			sourceTree = "<group>";
+		};
+		524261AF25784FA5003160F7 /* interactor */ = {
+			isa = PBXGroup;
+			children = (
+				524261B4257854B8003160F7 /* RepoDetailInteractor.swift */,
+			);
+			path = interactor;
+			sourceTree = "<group>";
+		};
 		52429DF32572749A00735D7D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				524261AB25784F64003160F7 /* DetailModule */,
 				52429DF4257274AF00735D7D /* MainModule */,
 			);
 			path = Modules;
@@ -232,6 +291,7 @@
 		52429E072572967B00735D7D /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				524261A8257845E6003160F7 /* ImagesService */,
 				52429E082572968D00735D7D /* GithubService */,
 			);
 			path = Services;
@@ -435,14 +495,18 @@
 				52429E0F2572999000735D7D /* GithubService.swift in Sources */,
 				523806632571852A00A64D49 /* AppDelegate.swift in Sources */,
 				52429E062572819700735D7D /* MainModuleBuilder.swift in Sources */,
+				524261B125785131003160F7 /* RepoDetailViewController.swift in Sources */,
+				524261B5257854B8003160F7 /* RepoDetailInteractor.swift in Sources */,
 				525FA4BD25778A5300BA31B2 /* ResponseError.swift in Sources */,
 				52FA582525765F9A00963BE9 /* OptionsCell.swift in Sources */,
 				523806652571852A00A64D49 /* SceneDelegate.swift in Sources */,
+				524261AA25784631003160F7 /* ImagesAPI.swift in Sources */,
 				5298B46D25751DE200A5C265 /* JSONHelpers.swift in Sources */,
 				52429DFA2572760200735D7D /* Router.swift in Sources */,
 				52FA582125765C6600963BE9 /* ColorsHelper.swift in Sources */,
 				52429E0425727F4A00735D7D /* URLExtension.swift in Sources */,
 				52FA582A2576AC4B00963BE9 /* ResponseExtension.swift in Sources */,
+				524261B3257851DA003160F7 /* RepoDetailPresenter.swift in Sources */,
 				52FA581E2575890B00963BE9 /* Owner.swift in Sources */,
 				52429DFC2572769200735D7D /* Interactor.swift in Sources */,
 				52429DF6257274E600735D7D /* MainViewController.swift in Sources */,

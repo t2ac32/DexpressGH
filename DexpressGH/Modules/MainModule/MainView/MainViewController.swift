@@ -217,6 +217,8 @@ extension MainViewController: UITableViewDataSource {
             default:
                 print("search query not found")
             }
+        } else {
+            self.presenter.showRepoDetailController(navigationController: self.navigationController!)
         }
     }
 }
