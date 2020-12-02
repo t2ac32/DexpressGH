@@ -88,6 +88,7 @@ extension MainPresenter: MainPresentation {
             self.view?.resultsFound(didFound: true)
             self.view?.dismissSearch()
             self.view?.reloadData(isFiltering: self.isFiltering)
+            
         }
     }
     func noResultsFound() {
