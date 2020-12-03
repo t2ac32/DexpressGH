@@ -16,11 +16,9 @@ class RepoItemCell: UITableViewCell {
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var watchersLabel: UILabel!
     @IBOutlet weak var followersLabel: UILabel!
-    
     @IBOutlet weak var watchersWidth: NSLayoutConstraint!
     @IBOutlet weak var followersWidth: NSLayoutConstraint!
     @IBOutlet weak var forksWidth: NSLayoutConstraint!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,7 +35,6 @@ class RepoItemCell: UITableViewCell {
         followersLabel.translatesAutoresizingMaskIntoConstraints = false
         watchersLabel.translatesAutoresizingMaskIntoConstraints = false
         forksLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         if let followers = repoModel.followers {
             followersLabel.text = followers
             showView(hide: false, view: followersLabel)

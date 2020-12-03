@@ -42,7 +42,6 @@ class MainViewController: UIViewController {
     var datasource: [RepositoryItemViewModel] = [] {
         didSet { self.tableView.reloadData() }
     }
-    
     init(presenter: MainPresentation) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)

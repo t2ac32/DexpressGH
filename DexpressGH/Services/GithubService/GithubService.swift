@@ -37,7 +37,7 @@ extension GitHubServiceImpl: GitHubApi {
         path = keywords.joined(separator: "+")
         if qualifiers.isEmpty == false {
             for (index, elem) in  qualifiers.enumerated() {
-                if index == 1 && elem  {
+                if index == 1 && elem {
                     path = "user:\(path)"
                     return path
                 }
