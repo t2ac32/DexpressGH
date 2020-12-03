@@ -21,15 +21,18 @@ protocol GitHubApi {
 class GitHubServiceImpl {
     internal let endpoint: String = "https://api.github.com/search/repositories?q="
     static let shared: GitHubServiceImpl = GitHubServiceImpl()
-    func requestUrl(path: String) -> URL? {
+    func buildRequestUrl(path: String) -> URL? {
         if path.contains(endpoint) {
             return URL(string: path)
         }
         return URL(string: endpoint + path)
     }
+    public init() {
+    }
 }
 
 extension GitHubServiceImpl: GitHubApi {
+    
     func buildPath(from keywords: [String], qualifiers: [String: String]) -> String {
         var path: String = ""
         path = keywords.joined(separator: "+")
@@ -45,8 +48,8 @@ extension GitHubServiceImpl: GitHubApi {
         }
         return path
     }
-    func fetchRepositories(from path: String, completion: @escaping (RepositoriesClosure)) {
-        guard let url = requestUrl(path: path) else {
+    func fetchRepositories(from path: String, completion: @escaping     (RepositoriesClosure)) {
+        guard let url = buildRequestUrl(path: path) else {
             print("Error getting Request URL")
             return
         }

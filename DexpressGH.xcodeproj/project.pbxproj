@@ -13,6 +13,10 @@
 		5238066F2571852E00A64D49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5238066D2571852E00A64D49 /* LaunchScreen.storyboard */; };
 		5238067A2571852F00A64D49 /* DexpressGHTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806792571852F00A64D49 /* DexpressGHTests.swift */; };
 		523806852571852F00A64D49 /* DexpressGHUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806842571852F00A64D49 /* DexpressGHUITests.swift */; };
+		524261BC25790148003160F7 /* MainViewInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261BB25790148003160F7 /* MainViewInteractorTests.swift */; };
+		524261BE2579015F003160F7 /* MainViewPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261BD2579015F003160F7 /* MainViewPresenterTests.swift */; };
+		524261C025790173003160F7 /* MainViewRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261BF25790173003160F7 /* MainViewRouterTests.swift */; };
+		524261C3257908C9003160F7 /* GHServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261C2257908C9003160F7 /* GHServiceTests.swift */; };
 		52429DF6257274E600735D7D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF5257274E600735D7D /* MainViewController.swift */; };
 		52429DF8257275B400735D7D /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF7257275B400735D7D /* MainPresenter.swift */; };
 		52429DFA2572760200735D7D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF92572760200735D7D /* Router.swift */; };
@@ -71,6 +75,10 @@
 		523806802571852F00A64D49 /* DexpressGHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DexpressGHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		523806842571852F00A64D49 /* DexpressGHUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexpressGHUITests.swift; sourceTree = "<group>"; };
 		523806862571852F00A64D49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		524261BB25790148003160F7 /* MainViewInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewInteractorTests.swift; sourceTree = "<group>"; };
+		524261BD2579015F003160F7 /* MainViewPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenterTests.swift; sourceTree = "<group>"; };
+		524261BF25790173003160F7 /* MainViewRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewRouterTests.swift; sourceTree = "<group>"; };
+		524261C2257908C9003160F7 /* GHServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHServiceTests.swift; sourceTree = "<group>"; };
 		52429DF5257274E600735D7D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		52429DF7257275B400735D7D /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		52429DF92572760200735D7D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -166,6 +174,8 @@
 		523806782571852F00A64D49 /* DexpressGHTests */ = {
 			isa = PBXGroup;
 			children = (
+				524261C125790189003160F7 /* GHServiceTests */,
+				524261BA2579010B003160F7 /* MainViewTest */,
 				523806792571852F00A64D49 /* DexpressGHTests.swift */,
 				5238067B2571852F00A64D49 /* Info.plist */,
 			);
@@ -179,6 +189,24 @@
 				523806862571852F00A64D49 /* Info.plist */,
 			);
 			path = DexpressGHUITests;
+			sourceTree = "<group>";
+		};
+		524261BA2579010B003160F7 /* MainViewTest */ = {
+			isa = PBXGroup;
+			children = (
+				524261BB25790148003160F7 /* MainViewInteractorTests.swift */,
+				524261BD2579015F003160F7 /* MainViewPresenterTests.swift */,
+				524261BF25790173003160F7 /* MainViewRouterTests.swift */,
+			);
+			path = MainViewTest;
+			sourceTree = "<group>";
+		};
+		524261C125790189003160F7 /* GHServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				524261C2257908C9003160F7 /* GHServiceTests.swift */,
+			);
+			path = GHServiceTests;
 			sourceTree = "<group>";
 		};
 		52429DF32572749A00735D7D /* Modules */ = {
@@ -458,7 +486,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				524261C025790173003160F7 /* MainViewRouterTests.swift in Sources */,
+				524261C3257908C9003160F7 /* GHServiceTests.swift in Sources */,
+				524261BC25790148003160F7 /* MainViewInteractorTests.swift in Sources */,
 				5238067A2571852F00A64D49 /* DexpressGHTests.swift in Sources */,
+				524261BE2579015F003160F7 /* MainViewPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +687,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643U4JT4YA;
 				INFOPLIST_FILE = DexpressGHTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -676,6 +709,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643U4JT4YA;
 				INFOPLIST_FILE = DexpressGHTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -695,7 +729,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643U4JT4YA;
 				INFOPLIST_FILE = DexpressGHUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -714,7 +751,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 643U4JT4YA;
 				INFOPLIST_FILE = DexpressGHUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

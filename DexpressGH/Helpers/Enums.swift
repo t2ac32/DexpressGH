@@ -11,3 +11,10 @@ import Foundation
 enum Login: String, Codable {
     case t2Ac32 = "t2ac32"
 }
+
+enum GHApiErrors: Swift.Error {
+    typealias RawValue = NSError
+    case urlBuildError
+    case fetchError
+    case outOfStock
+}
