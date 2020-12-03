@@ -219,9 +219,14 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering {
             selections[indexPath.row] = !selections[indexPath.row]
-            print(selections)
             tableView.reloadData()
         }
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 && isFiltering {
+                 return "Pick where to Search"
+        }
+        return nil
     }
 }
 
@@ -240,7 +245,5 @@ extension MainViewController: UITableViewDataSourcePrefetching {
                 self.presenter.requestNextPage(link: nextPage)
             }
         }
-    }
-    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
     }
 }

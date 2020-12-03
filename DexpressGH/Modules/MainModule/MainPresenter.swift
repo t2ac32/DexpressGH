@@ -51,7 +51,8 @@ extension MainPresenter: MainPresentation {
         }
     }
     func cancelSearch() {
-        self.view?.reloadData(isFiltering: false)
+        self.view?.dismissSearch()
+        self.view?.reloadData(isFiltering: false)   
     }
     func updateQueryOptions(searchText: String) {
         var queryOptions: [String] = []
