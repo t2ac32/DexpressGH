@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
     private var noResultsView: UIView = UIView()
     private var noResultsLbl: UILabel = UILabel()
     private let navItem = UINavigationItem(title: "Home")
-    private let spinner = UIActivityIndicatorView(style: .medium)
+    private let spinner = UIActivityIndicatorView(style: .gray)
     private let searchController = UISearchController(searchResultsController: nil)
     // MARK: Functional Vars and constants
     private static let repositoryCellID = "repoItemCell"

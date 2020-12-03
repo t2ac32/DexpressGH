@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		523806632571852A00A64D49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806622571852A00A64D49 /* AppDelegate.swift */; };
-		523806652571852A00A64D49 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806642571852A00A64D49 /* SceneDelegate.swift */; };
 		5238066C2571852E00A64D49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5238066B2571852E00A64D49 /* Assets.xcassets */; };
 		5238066F2571852E00A64D49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5238066D2571852E00A64D49 /* LaunchScreen.storyboard */; };
 		5238067A2571852F00A64D49 /* DexpressGHTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523806792571852F00A64D49 /* DexpressGHTests.swift */; };
@@ -65,7 +64,6 @@
 /* Begin PBXFileReference section */
 		5238065F2571852A00A64D49 /* DexpressGH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DexpressGH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		523806622571852A00A64D49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		523806642571852A00A64D49 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5238066B2571852E00A64D49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5238066E2571852E00A64D49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		523806702571852E00A64D49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 				52429DF32572749A00735D7D /* Modules */,
 				52429E072572967B00735D7D /* Services */,
 				523806622571852A00A64D49 /* AppDelegate.swift */,
-				523806642571852A00A64D49 /* SceneDelegate.swift */,
 				5238066B2571852E00A64D49 /* Assets.xcassets */,
 				5238066D2571852E00A64D49 /* LaunchScreen.storyboard */,
 				523806702571852E00A64D49 /* Info.plist */,
@@ -465,7 +462,6 @@
 				52429E062572819700735D7D /* MainModuleBuilder.swift in Sources */,
 				525FA4BD25778A5300BA31B2 /* ResponseError.swift in Sources */,
 				52FA582525765F9A00963BE9 /* OptionsCell.swift in Sources */,
-				523806652571852A00A64D49 /* SceneDelegate.swift in Sources */,
 				5298B46D25751DE200A5C265 /* JSONHelpers.swift in Sources */,
 				52429DFA2572760200735D7D /* Router.swift in Sources */,
 				52FA582125765C6600963BE9 /* ColorsHelper.swift in Sources */,
@@ -650,7 +646,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643U4JT4YA;
 				INFOPLIST_FILE = DexpressGH/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -669,7 +665,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 643U4JT4YA;
 				INFOPLIST_FILE = DexpressGH/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

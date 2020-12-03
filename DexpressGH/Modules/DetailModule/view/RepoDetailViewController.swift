@@ -9,7 +9,6 @@
 import UIKit
 
 protocol RepoDetailViewInterface: class {
-    
 }
 class RepoDetailViewController: UIViewController {
     private var presenter: RepoDetailPresenter

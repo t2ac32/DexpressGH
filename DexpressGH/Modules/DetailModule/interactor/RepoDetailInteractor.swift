@@ -9,7 +9,6 @@
 import Foundation
 
 protocol RepoDetailInteractorInterface: class {
-    
 }
 
 class RepoDetailInteractor {

@@ -21,8 +21,8 @@ protocol MainPresentation: class {
 
 class MainPresenter {
     weak var view: MainViewInterface?
-    var interactor: MainViewInteractorInput?
-    var router: MainViewRouting?
+    var interactor: MainViewInteractorInterface?
+    var router: MainViewRoutingInterface?
     private var queryOptions: [String] = []
     private let apiOptions: [String] = ["Repos named ",
                                         "Repo owner is ",
