@@ -12,15 +12,18 @@ protocol RepoDetailViewInterface: class {
     
 }
 class RepoDetailViewController: UIViewController {
+    private var presenter: RepoDetailPresenter
     private let tableView: UITableView = UITableView()
     private let repo: RepositoryItemViewModel
-    init(repo: RepositoryItemViewModel) {
+    init(repo: RepositoryItemViewModel, presenter: RepoDetailPresenter) {
         self.repo = repo
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

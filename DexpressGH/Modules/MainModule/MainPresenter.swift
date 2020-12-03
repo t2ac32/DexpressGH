@@ -21,15 +21,15 @@ protocol MainPresentation: class {
 
 class MainPresenter {
     weak var view: MainViewInterface?
-    var interactor: MainViewInteractorInput?
-    var router: MainViewRouting?
+    var interactor: MainViewInteractorInterface?
+    var router: MainViewRoutingInterface?
     private var isFiltering: Bool = false
     private var queryOptions: [String] = []
     private let apiOptions: [String] = ["Repos named ",
                                         "Repo owner is ",
                                         "Description contains ",
                                         "Read Me contains "]
-    init(interactor: MainViewInteractorInput, router: MainViewRouting) {
+    init(interactor: MainViewInteractorInterface, router: MainViewRoutingInterface) {
         self.interactor = interactor
         self.router = router
     }
@@ -92,7 +92,6 @@ extension MainPresenter: MainPresentation {
             self.view?.resultsFound(didFound: true)
             self.view?.dismissSearch()
             self.view?.reloadData(isFiltering: self.isFiltering)
-            
         }
     }
     func noResultsFound() {

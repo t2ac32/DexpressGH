@@ -6,8 +6,8 @@
 //  Copyright © 2020 Tracer. All rights reserved.
 //
 
-import UIKit
 import Foundation
+import UIKit
 
 class MainModuleBuilder {
     static func build() -> UIViewController {

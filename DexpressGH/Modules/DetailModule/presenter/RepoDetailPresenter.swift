@@ -5,21 +5,22 @@
 //  Created by Tracer on 02/12/20.
 //  Copyright © 2020 Tracer. All rights reserved.
 //
-
+import UIKit
 import Foundation
 
-protocol RepoDetailPresenterInterface {
+protocol RepoDetailPresenterInterface: class {
     func viewDidLoad()
 }
 
 class RepoDetailPresenter {
     weak var view: RepoDetailViewInterface?
-    var repo: RepositoryItemViewModel
-    var interactor: RepoDetailInteractorInterface
-    // TODO: Declare Router
-    init(repo: RepositoryItemViewModel, interactor: RepoDetailInteractorInterface) {
+    var repo: RepositoryItemViewModel?
+    var interactor: RepoDetailInteractorInterface?
+    var router: RepoDetailRouterInterface?
+    init(repo: RepositoryItemViewModel, interactor: RepoDetailInteractorInterface, router: RepoDetailRouterInterface) {
         self.repo = repo
         self.interactor = interactor
+        self.router = router
     }
 }
 

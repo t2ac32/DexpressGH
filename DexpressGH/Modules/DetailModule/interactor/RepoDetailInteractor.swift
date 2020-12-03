@@ -13,12 +13,10 @@ protocol RepoDetailInteractorInterface: class {
 }
 
 class RepoDetailInteractor {
-    weak var presenter: RepoDetailInteractorInterface?
+    weak var presenter: RepoDetailPresenter?
     init() {
-        
     }
 }
 
 extension RepoDetailInteractor: RepoDetailInteractorInterface {
-    
 }

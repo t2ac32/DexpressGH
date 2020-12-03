@@ -18,6 +18,7 @@
 		524261B3257851DA003160F7 /* RepoDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261B2257851DA003160F7 /* RepoDetailPresenter.swift */; };
 		524261B5257854B8003160F7 /* RepoDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261B4257854B8003160F7 /* RepoDetailInteractor.swift */; };
 		524261B72578564B003160F7 /* RepoDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261B62578564B003160F7 /* RepoDetailRouter.swift */; };
+		524261B925785D32003160F7 /* RepoDetailModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524261B825785D32003160F7 /* RepoDetailModuleBuilder.swift */; };
 		52429DF6257274E600735D7D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF5257274E600735D7D /* MainViewController.swift */; };
 		52429DF8257275B400735D7D /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF7257275B400735D7D /* MainPresenter.swift */; };
 		52429DFA2572760200735D7D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52429DF92572760200735D7D /* Router.swift */; };
@@ -81,6 +82,7 @@
 		524261B2257851DA003160F7 /* RepoDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailPresenter.swift; sourceTree = "<group>"; };
 		524261B4257854B8003160F7 /* RepoDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailInteractor.swift; sourceTree = "<group>"; };
 		524261B62578564B003160F7 /* RepoDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailRouter.swift; sourceTree = "<group>"; };
+		524261B825785D32003160F7 /* RepoDetailModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailModuleBuilder.swift; sourceTree = "<group>"; };
 		52429DF5257274E600735D7D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		52429DF7257275B400735D7D /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		52429DF92572760200735D7D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				524261AE25784F97003160F7 /* presenter */,
 				524261AD25784F8B003160F7 /* router */,
 				524261AC25784F7E003160F7 /* view */,
+				524261B825785D32003160F7 /* RepoDetailModuleBuilder.swift */,
 			);
 			path = DetailModule;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				52FA581F2575890B00963BE9 /* Item.swift in Sources */,
 				52429E0F2572999000735D7D /* GithubService.swift in Sources */,
 				523806632571852A00A64D49 /* AppDelegate.swift in Sources */,
+				524261B925785D32003160F7 /* RepoDetailModuleBuilder.swift in Sources */,
 				52429E062572819700735D7D /* MainModuleBuilder.swift in Sources */,
 				524261B125785131003160F7 /* RepoDetailViewController.swift in Sources */,
 				524261B5257854B8003160F7 /* RepoDetailInteractor.swift in Sources */,

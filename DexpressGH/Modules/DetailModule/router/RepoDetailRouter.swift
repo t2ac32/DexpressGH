@@ -6,10 +6,10 @@
 //  Copyright © 2020 Tracer. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 protocol RepoDetailRouterInterface {
-    
 }
 
 class RepoDetailRouter {
@@ -17,7 +17,4 @@ class RepoDetailRouter {
 }
 
 extension RepoDetailRouter: RepoDetailRouterInterface {
-    
 }
-
-

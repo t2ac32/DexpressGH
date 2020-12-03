@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 // MARK: Handle NAVIGATION Between screens.
-protocol MainViewRouting {
+protocol MainViewRoutingInterface {
     func pushToRepoDetail(navigationConroller: UINavigationController)
 }
 
@@ -19,7 +19,7 @@ class MainViewRouter {
     weak var view: MainViewInterface?
 }
 
-extension MainViewRouter: MainViewRouting {
+extension MainViewRouter: MainViewRoutingInterface {
     func pushToRepoDetail(navigationConroller: UINavigationController) {
         // TODO: Implment push to Repo Detail View
     }
