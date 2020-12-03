@@ -21,7 +21,7 @@ protocol MainViewInterface: class {
     func updateQueryOptions(options: [String])
 }
 
-class MainViewController: UIViewController, UISearchBarDelegate {
+class MainViewController: UIViewController {
     // Reference to presenter
     private var presenter: MainPresentation
     // MARK: Views initialization
@@ -30,14 +30,15 @@ class MainViewController: UIViewController, UISearchBarDelegate {
     private var noResultsLbl: UILabel = UILabel()
     private let navItem = UINavigationItem(title: "Home")
     private let spinner = UIActivityIndicatorView(style: .medium)
-    let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     // MARK: Functional Vars and constants
     private static let repositoryCellID = "repoItemCell"
     private static let optionsCellID = "optionsCell"
-    private var queryOptions: [String] = []
+    private var searchOptions: [String] = []
+    private var selections: [Bool] = [false, false,
+                                      false, false]
     var pagination: Pagination?
-    var isFiltering: Bool = false
-    // TODO: Pass is filtering to presenter
+    private var isFiltering: Bool = false
     var datasource: [RepositoryItemViewModel] = [] {
         didSet { self.tableView.reloadData() }
     }
@@ -70,6 +71,7 @@ class MainViewController: UIViewController, UISearchBarDelegate {
         self.title = "Home"
     }
     func setupSearchController() {
+        searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search GitHub Repos"
@@ -119,7 +121,7 @@ class MainViewController: UIViewController, UISearchBarDelegate {
 extension MainViewController: MainViewInterface {
     /// Updates Serachbar query options acoording to keywords
     func updateQueryOptions(options: [String]) {
-        queryOptions = options
+        searchOptions = options
     }
     func reloadData(isFiltering: Bool) {
         self.isFiltering = isFiltering
@@ -138,7 +140,9 @@ extension MainViewController: MainViewInterface {
         self.pagination = pagination
     }
     func resultsFound(didFound: Bool) {
-        tableView.isHidden = !didFound
+        if datasource.count == 0 {
+            tableView.isHidden = !didFound
+        }
     }
     func showTableLoader() {
         spinner.color = UIColor.tracerGreen
@@ -153,6 +157,18 @@ extension MainViewController: MainViewInterface {
     }
 }
 
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search button click")
+        let keywords = searchBar.text!.components(separatedBy: " ")
+        self.datasource = []
+        self.presenter.searchRepos(for: keywords, with: selections)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.presenter.cancelSearch()
+        self.presenter.updateQueryOptions(searchText: "")
+    }
+}
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         tableView.isHidden = false
@@ -165,13 +181,14 @@ extension MainViewController: UISearchResultsUpdating {
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
-            return self.queryOptions.count
+            return self.searchOptions.count
         }
         return self.datasource.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isFiltering {
-            return get_option_cell(indexPath: indexPath)
+            let cell = get_option_cell(indexPath: indexPath)
+            return cell
         }
         let repoItem = self.datasource[indexPath.row]
         // swiftlint:disable force_cast
@@ -193,32 +210,17 @@ extension MainViewController: UITableViewDataSource {
         // swiftlint:enable force_cast
         var searchOption = ""
         if isFiltering {
-            searchOption = queryOptions[indexPath.row]
+            searchOption = searchOptions[indexPath.row]
         }
+        cell.isSelected = selections[indexPath.row]
         cell.configure(withOptions: searchOption)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering {
-            let searchBar = searchController.searchBar
-            self.presenter.isSearching(active: false, hasText: searchBar.text?.isEmpty ?? true)
-            let keywords = searchBar.text!.components(separatedBy: " ")
-            self.datasource = []
-            switch indexPath.row {
-            case 0:
-                //presenter -> router search reponame
-                presenter.searchRepos(for: keywords, with: ["in": "name"])
-            case 1:
-                presenter.searchRepos(for: [], with: ["user": searchBar.text!])
-            case 2:
-                presenter.searchRepos(for: keywords, with: ["in": "description"])
-            case 3:
-                presenter.searchRepos(for: keywords, with: ["in": "readme"])
-            default:
-                print("search query not found")
-            }
-        } else {
-            self.presenter.showRepoDetailController(navigationController: self.navigationController!)
+            selections[indexPath.row] = !selections[indexPath.row]
+            print(selections)
+            tableView.reloadData()
         }
     }
 }

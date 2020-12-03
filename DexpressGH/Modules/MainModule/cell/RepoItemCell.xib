@@ -56,7 +56,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.5k" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgQ-UG-m7G">
                         <rect key="frame" x="151" y="40" width="27" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="27" id="hZY-MH-2yF"/>
+                            <constraint firstAttribute="width" constant="27" id="5xz-6h-w9M"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,7 +72,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.5k" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUC-uU-9QP">
                         <rect key="frame" x="205" y="40" width="27" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="27" id="GeM-ka-qWh"/>
+                            <constraint firstAttribute="width" constant="27" id="jsl-uE-Yrf"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,7 +81,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.5k" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fne-Yp-aiW">
                         <rect key="frame" x="97" y="40" width="27" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="27" id="r3o-jW-cN6"/>
+                            <constraint firstAttribute="width" constant="27" id="zsF-f3-L8p"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,9 +121,12 @@
                 <outlet property="avatarImageView" destination="kdN-6u-lwK" id="hCg-8R-Llr"/>
                 <outlet property="descriptionLabel" destination="vwB-vt-wAS" id="WfU-dy-1Qw"/>
                 <outlet property="followersLabel" destination="fUC-uU-9QP" id="4Zs-dc-x5j"/>
+                <outlet property="followersWidth" destination="jsl-uE-Yrf" id="y1f-2R-bJK"/>
                 <outlet property="forksLabel" destination="Fne-Yp-aiW" id="nje-Bp-dhY"/>
+                <outlet property="forksWidth" destination="zsF-f3-L8p" id="yBj-mw-rEu"/>
                 <outlet property="titleLabel" destination="2o5-Um-4ao" id="LdS-KA-VNV"/>
                 <outlet property="watchersLabel" destination="FgQ-UG-m7G" id="Thi-Qk-WqQ"/>
+                <outlet property="watchersWidth" destination="5xz-6h-w9M" id="stm-Gg-Cue"/>
             </connections>
             <point key="canvasLocation" x="141" y="225"/>
         </tableViewCell>

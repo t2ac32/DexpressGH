@@ -10,20 +10,19 @@ import Foundation
 
 protocol MainPresentation: class {
     func viewDidLoad()
-    func searchRepos(for keywords: [String], with qualifiers: [String: String])
+    func searchRepos(for keywords: [String], with qualifiers: [Bool] )
     func requestNextPage(link: String)
     func loadResults(repositories: [Item], pagination: Pagination)
     func noResultsFound()
     func updateQueryOptions(searchText: String)
-    func isSearching(active: Bool, hasText: Bool)
     func showRepoDetailController(navigationController: UINavigationController)
+    func cancelSearch()
 }
 
 class MainPresenter {
     weak var view: MainViewInterface?
-    var interactor: MainViewInteractorInterface?
-    var router: MainViewRoutingInterface?
-    private var isFiltering: Bool = false
+    var interactor: MainViewInteractorInput?
+    var router: MainViewRouting?
     private var queryOptions: [String] = []
     private let apiOptions: [String] = ["Repos named ",
                                         "Repo owner is ",
@@ -43,16 +42,16 @@ class MainPresenter {
 }
 
 extension MainPresenter: MainPresentation {
-    //Mocks our view viewdidLoad method
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.interactor?.getRepositories(for: [""], with: ["user": "t2ac32"])
+            self?.interactor?.getRepositories(for: ["t2ac32"], with: [false,
+                                                                      true,
+                                                                      false,
+                                                                      false])
         }
     }
-    func isSearching(active: Bool, hasText: Bool) {
-        if active && hasText {
-            isFiltering = active
-        } else { isFiltering = false }
+    func cancelSearch() {
+        self.view?.reloadData(isFiltering: false)
     }
     func updateQueryOptions(searchText: String) {
         var queryOptions: [String] = []
@@ -62,9 +61,9 @@ extension MainPresenter: MainPresentation {
         self.view?.updateQueryOptions(options: queryOptions)
         self.view?.reloadData(isFiltering: true)
     }
-    func searchRepos(for keywords: [String], with qualifiers: [String: String] ) {
+    func searchRepos(for keywords: [String], with qualifiers: [Bool] ) {
         DispatchQueue.main.async {
-            self.view?.reloadData(isFiltering: self.isFiltering)
+            self.view?.reloadData(isFiltering: false)
             self.view?.showTableLoader()
         }
         DispatchQueue.global(qos: .background).async {[weak self] in
@@ -91,12 +90,11 @@ extension MainPresenter: MainPresentation {
             self.view?.updatePagination(pagination: pagination)
             self.view?.resultsFound(didFound: true)
             self.view?.dismissSearch()
-            self.view?.reloadData(isFiltering: self.isFiltering)
+            self.view?.reloadData(isFiltering: false)
         }
     }
     func noResultsFound() {
         DispatchQueue.main.async {
-            self.view?.dismissSearch()
             self.view?.resultsFound(didFound: false)
             self.view?.hideTableLoader()
         }

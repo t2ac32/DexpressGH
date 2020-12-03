@@ -15,38 +15,47 @@ protocol GitHubApi {
     var endpoint: String { get }
     func fetchRepositories(from path: String, completion: @escaping(RepositoriesClosure))
     func fetchRepositoriesFromJson( completion: @escaping(LocalRepositoryClosure))
-    func buildPath(from keywords: [String], qualifiers: [String: String]) -> String
+    func buildPath(from keywords: [String], qualifiers: [Bool]) -> String
 }
 
 class GitHubServiceImpl {
     internal let endpoint: String = "https://api.github.com/search/repositories?q="
     static let shared: GitHubServiceImpl = GitHubServiceImpl()
-    func requestUrl(path: String) -> URL? {
+    func buildRequestUrl(path: String) -> URL? {
         if path.contains(endpoint) {
             return URL(string: path)
         }
         return URL(string: endpoint + path)
     }
+    public init() {
+    }
 }
 
 extension GitHubServiceImpl: GitHubApi {
-    func buildPath(from keywords: [String], qualifiers: [String: String]) -> String {
+    func buildPath(from keywords: [String], qualifiers: [Bool]) -> String {
         var path: String = ""
         path = keywords.joined(separator: "+")
         if qualifiers.isEmpty == false {
-            for key in qualifiers.keys {
-                guard let qualifier = qualifiers[key] else {
-                    print("error appending qualifier value")
+            for (index, elem) in  qualifiers.enumerated() {
+                if index == 1 && elem {
+                    path = "user:\(path)"
                     return path
                 }
-                let query = "+" + key + ":" + qualifier
-                path.append(query)
+                if index == 0 && elem {
+                    path.append("+in:name")
+                }
+                if index == 2 && elem {
+                    path.append("+in:description)")
+                }
+                if index == 3 && elem {
+                    path.append("+in:readme)")
+                }
             }
         }
         return path
     }
-    func fetchRepositories(from path: String, completion: @escaping (RepositoriesClosure)) {
-        guard let url = requestUrl(path: path) else {
+    func fetchRepositories(from path: String, completion: @escaping     (RepositoriesClosure)) {
+        guard let url = buildRequestUrl(path: path) else {
             print("Error getting Request URL")
             return
         }
