@@ -30,19 +30,19 @@ class MainViewController: UIViewController {
     private var noResultsLbl: UILabel = UILabel()
     private let navItem = UINavigationItem(title: "Home")
     private let spinner = UIActivityIndicatorView(style: .medium)
-    let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     // MARK: Functional Vars and constants
     private static let repositoryCellID = "repoItemCell"
     private static let optionsCellID = "optionsCell"
     private var searchOptions: [String] = []
-    private var selections: [Bool] = [false,false,
+    private var selections: [Bool] = [false, false,
                                       false, false]
     var pagination: Pagination?
-    var isFiltering: Bool = false
-    // TODO: Pass is filtering to presenter
+    private var isFiltering: Bool = false
     var datasource: [RepositoryItemViewModel] = [] {
         didSet { self.tableView.reloadData() }
     }
+    
     init(presenter: MainPresentation) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -141,7 +141,9 @@ extension MainViewController: MainViewInterface {
         self.pagination = pagination
     }
     func resultsFound(didFound: Bool) {
-        tableView.isHidden = !didFound
+        if datasource.count == 0 {
+            tableView.isHidden = !didFound
+        }
     }
     func showTableLoader() {
         spinner.color = UIColor.tracerGreen
@@ -156,8 +158,7 @@ extension MainViewController: MainViewInterface {
     }
 }
 
-extension MainViewController: UISearchBarDelegate{
-    
+extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("search button click")
         self.presenter.isSearching(active: false, hasText: searchBar.text?.isEmpty ?? true)

@@ -17,7 +17,6 @@ protocol MainViewInteractorInput {
 class MainViewInteractor {
     var service: GitHubApi
     weak var presenter: MainPresentation?
-    //inyect the protocl not the full service
     init(service: GitHubApi) {
         self.service = service
     }

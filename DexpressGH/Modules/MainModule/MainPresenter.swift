@@ -57,7 +57,6 @@ extension MainPresenter: MainPresentation {
         isFiltering = false
         self.view?.reloadData(isFiltering: isFiltering)
     }
-    
     func updateQueryOptions(searchText: String) {
         var queryOptions: [String] = []
         for option in apiOptions {
@@ -100,7 +99,6 @@ extension MainPresenter: MainPresentation {
     }
     func noResultsFound() {
         DispatchQueue.main.async {
-            self.view?.dismissSearch()
             self.view?.resultsFound(didFound: false)
             self.view?.hideTableLoader()
         }
