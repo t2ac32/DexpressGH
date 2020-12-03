@@ -10,12 +10,13 @@ import Foundation
 
 protocol MainPresentation: class {
     func viewDidLoad()
-    func searchRepos(for keywords: [String], with qualifiers: [String: String])
+    func searchRepos(for keywords: [String], with qualifiers: [Bool] )
     func requestNextPage(link: String)
     func loadResults(repositories: [Item], pagination: Pagination)
     func noResultsFound()
     func updateQueryOptions(searchText: String)
     func isSearching(active: Bool, hasText: Bool)
+    func cancelSearch()
 }
 
 class MainPresenter {
@@ -39,10 +40,12 @@ class MainPresenter {
 }
 
 extension MainPresenter: MainPresentation {
-    //Mocks our view viewdidLoad method
     func viewDidLoad() {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.interactor?.getRepositories(for: [""], with: ["user": "t2ac32"])
+            self?.interactor?.getRepositories(for: ["t2ac32"], with: [false,
+                                                                      true,
+                                                                      false,
+                                                                      false])
         }
     }
     func isSearching(active: Bool, hasText: Bool) {
@@ -50,6 +53,11 @@ extension MainPresenter: MainPresentation {
             isFiltering = active
         } else { isFiltering = false }
     }
+    func cancelSearch() {
+        isFiltering = false
+        self.view?.reloadData(isFiltering: isFiltering)
+    }
+    
     func updateQueryOptions(searchText: String) {
         var queryOptions: [String] = []
         for option in apiOptions {
@@ -58,7 +66,7 @@ extension MainPresenter: MainPresentation {
         self.view?.updateQueryOptions(options: queryOptions)
         self.view?.reloadData(isFiltering: true)
     }
-    func searchRepos(for keywords: [String], with qualifiers: [String: String] ) {
+    func searchRepos(for keywords: [String], with qualifiers: [Bool] ) {
         DispatchQueue.main.async {
             self.view?.reloadData(isFiltering: self.isFiltering)
             self.view?.showTableLoader()
@@ -88,7 +96,6 @@ extension MainPresenter: MainPresentation {
             self.view?.resultsFound(didFound: true)
             self.view?.dismissSearch()
             self.view?.reloadData(isFiltering: self.isFiltering)
-            
         }
     }
     func noResultsFound() {

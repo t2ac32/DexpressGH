@@ -15,7 +15,7 @@ protocol GitHubApi {
     var endpoint: String { get }
     func fetchRepositories(from path: String, completion: @escaping(RepositoriesClosure))
     func fetchRepositoriesFromJson( completion: @escaping(LocalRepositoryClosure))
-    func buildPath(from keywords: [String], qualifiers: [String: String]) -> String
+    func buildPath(from keywords: [String], qualifiers: [Bool]) -> String
 }
 
 class GitHubServiceImpl {
@@ -32,18 +32,24 @@ class GitHubServiceImpl {
 }
 
 extension GitHubServiceImpl: GitHubApi {
-    
-    func buildPath(from keywords: [String], qualifiers: [String: String]) -> String {
+    func buildPath(from keywords: [String], qualifiers: [Bool]) -> String {
         var path: String = ""
         path = keywords.joined(separator: "+")
         if qualifiers.isEmpty == false {
-            for key in qualifiers.keys {
-                guard let qualifier = qualifiers[key] else {
-                    print("error appending qualifier value")
+            for (index, elem) in  qualifiers.enumerated() {
+                if index == 1 && elem  {
+                    path = "user:\(path)"
                     return path
                 }
-                let query = "+" + key + ":" + qualifier
-                path.append(query)
+                if index == 0 && elem {
+                    path.append("+in:name")
+                }
+                if index == 2 && elem {
+                    path.append("+in:description)")
+                }
+                if index == 3 && elem {
+                    path.append("+in:readme)")
+                }
             }
         }
         return path

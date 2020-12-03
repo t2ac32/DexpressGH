@@ -25,10 +25,9 @@ class GHServiceTests: XCTestCase {
     /// Test query path creationg from keywords and arguments
     ///
     func testBuildPath() {
-        let keywords = ["hologost"]
-        let qualifiers = ["owner": "t2ac32",
-                          "in": "name"]
-        let finalPath = "hologost+owner:t2ac32+in:name"
+        let keywords = ["t2ac32"]
+        let qualifiers = [false, true, false, false]
+        let finalPath = "user:t2ac32"
         let path = sut.buildPath(from: keywords, qualifiers: qualifiers)
         XCTAssertEqual(path, finalPath)
     }
@@ -56,12 +55,4 @@ class GHServiceTests: XCTestCase {
             }
         }
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

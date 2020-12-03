@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: Manipulates data and use cases
 protocol MainViewInteractorInput {
-    func getRepositories(for keywords: [String], with qualifiers: [String: String])
+    func getRepositories(for keywords: [String], with qualifiers: [Bool])
     func getNextPage(pagination: String)
 }
 
@@ -33,7 +33,11 @@ class MainViewInteractor {
 }
 
 extension MainViewInteractor: MainViewInteractorInput {
-    func getRepositories(for keywords: [String], with qualifiers: [String: String]) {
+    func getRepositories(for keywords: [String], with qualifiers: [Bool]) {
+        let path = self.service.buildPath(from: keywords, qualifiers: qualifiers)
+        fetchRepositories(from: path)
+    }
+    func newGetRepositories(for keywords: [String], with qualifiers: [Bool]) {
         let path = self.service.buildPath(from: keywords, qualifiers: qualifiers)
         fetchRepositories(from: path)
     }
