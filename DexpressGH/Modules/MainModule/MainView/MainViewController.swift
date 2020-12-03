@@ -161,7 +161,6 @@ extension MainViewController: MainViewInterface {
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("search button click")
-        self.presenter.isSearching(active: false, hasText: searchBar.text?.isEmpty ?? true)
         let keywords = searchBar.text!.components(separatedBy: " ")
         self.datasource = []
         self.presenter.searchRepos(for: keywords, with: selections)

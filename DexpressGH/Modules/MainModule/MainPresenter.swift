@@ -15,7 +15,7 @@ protocol MainPresentation: class {
     func loadResults(repositories: [Item], pagination: Pagination)
     func noResultsFound()
     func updateQueryOptions(searchText: String)
-    func isSearching(active: Bool, hasText: Bool)
+    //func isSearching(active: Bool, hasText: Bool)
     func cancelSearch()
 }
 
@@ -23,7 +23,6 @@ class MainPresenter {
     weak var view: MainViewInterface?
     var interactor: MainViewInteractorInput?
     var router: MainViewRouting?
-    private var isFiltering: Bool = false
     private var queryOptions: [String] = []
     private let apiOptions: [String] = ["Repos named ",
                                         "Repo owner is ",
@@ -48,14 +47,8 @@ extension MainPresenter: MainPresentation {
                                                                       false])
         }
     }
-    func isSearching(active: Bool, hasText: Bool) {
-        if active && hasText {
-            isFiltering = active
-        } else { isFiltering = false }
-    }
     func cancelSearch() {
-        isFiltering = false
-        self.view?.reloadData(isFiltering: isFiltering)
+        self.view?.reloadData(isFiltering: false)
     }
     func updateQueryOptions(searchText: String) {
         var queryOptions: [String] = []
@@ -67,7 +60,7 @@ extension MainPresenter: MainPresentation {
     }
     func searchRepos(for keywords: [String], with qualifiers: [Bool] ) {
         DispatchQueue.main.async {
-            self.view?.reloadData(isFiltering: self.isFiltering)
+            self.view?.reloadData(isFiltering: false)
             self.view?.showTableLoader()
         }
         DispatchQueue.global(qos: .background).async {[weak self] in
@@ -94,7 +87,7 @@ extension MainPresenter: MainPresentation {
             self.view?.updatePagination(pagination: pagination)
             self.view?.resultsFound(didFound: true)
             self.view?.dismissSearch()
-            self.view?.reloadData(isFiltering: self.isFiltering)
+            self.view?.reloadData(isFiltering: false)
         }
     }
     func noResultsFound() {

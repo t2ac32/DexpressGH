@@ -32,24 +32,27 @@ class RepoItemCell: UITableViewCell {
         var constraints: [NSLayoutConstraint] = []
         if let followers = repoModel.followers {
             followersLabel.text = followers
-            showView(view: followersLabel)
+            showView(hide: false, view: followersLabel)
+            constraints.append(followersLabel.widthAnchor.constraint(equalToConstant: 27.0))
         } else {
             constraints.append(followersLabel.widthAnchor.constraint(equalToConstant: 0.0))
-            hideView(view: followersLabel)
+            showView(hide: true, view: followersLabel)
         }
         if let watchers = repoModel.watchers {
             watchersLabel.text = watchers
-            showView(view: watchersLabel)
+            showView(hide: false, view: watchersLabel)
+            constraints.append(watchersLabel.widthAnchor.constraint(equalToConstant: 27.0))
         } else {
             constraints.append(watchersLabel.widthAnchor.constraint(equalToConstant: 0.0))
-            hideView(view: watchersLabel)
+            showView(hide: true, view: watchersLabel)
         }
         if let forks = repoModel.forks {
             forksLabel.text = forks
-            showView(view: followersLabel)
+            showView(hide: false, view: followersLabel)
+            constraints.append(forksLabel.widthAnchor.constraint(equalToConstant: 27.0))
         } else {
             constraints.append(forksLabel.widthAnchor.constraint(equalToConstant: 0.0))
-            hideView(view: followersLabel)
+            showView(hide: true, view: followersLabel)
         }
         NSLayoutConstraint.activate(constraints)
         self.layoutIfNeeded()
@@ -59,10 +62,7 @@ class RepoItemCell: UITableViewCell {
         imageView.layer.masksToBounds = true
         imageView.imageFromServerURL(url, placeHolder: UIImage(named: "user-placeholder"))
     }
-    func hideView(view: UIView) {
-        view.isHidden = true
-    }
-    func showView(view: UIView) {
-        view.isHidden = false
+    func showView(hide: Bool, view: UIView) {
+        view.isHidden = hide
     }
 }
