@@ -10,7 +10,7 @@ import Foundation
 
 extension Double {
     func unitFormatted() -> String {
-        if self >= 10000, self <= 999999 {
+        if self >= 1000, self <= 999999 {
             return String(format: "%.1fk", locale: Locale.current, self/1000).replacingOccurrences(of: ".0", with: "")
         }
         if self >= 999999 {
