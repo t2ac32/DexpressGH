@@ -40,18 +40,6 @@ extension ResponseError {
         try self.init(data: try Data(contentsOf: url))
     }
 
-    func with(
-        message: String?? = nil,
-        errors: [Error]?? = nil,
-        documentationURL: String?? = nil
-    ) -> ResponseError {
-        return ResponseError(
-            message: message ?? self.message,
-            errors: errors ?? self.errors,
-            documentationURL: documentationURL ?? self.documentationURL
-        )
-    }
-
     func jsonData() throws -> Data {
         return try newJSONEncoder().encode(self)
     }
@@ -82,18 +70,6 @@ extension Error {
 
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
-    }
-
-    func with(
-        resource: String?? = nil,
-        field: String?? = nil,
-        code: String?? = nil
-    ) -> Error {
-        return Error(
-            resource: resource ?? self.resource,
-            field: field ?? self.field,
-            code: code ?? self.code
-        )
     }
 
     func jsonData() throws -> Data {

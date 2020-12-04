@@ -36,7 +36,7 @@ class GHServiceTests: XCTestCase {
     func testFetchReposFromLocal() {
         sut.fetchRepositoriesFromJson { (repositories) in
             guard repositories.items != nil else {
-                XCTFail("Error converting a Repositories")
+                XCTAssertNotNil("Error converting a Repositories")
                 return
             }
         }

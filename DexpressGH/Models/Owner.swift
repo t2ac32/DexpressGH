@@ -58,37 +58,6 @@ extension Owner {
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
     }
-
-    func with(
-        login: String?? = nil,
-        idx: Int?? = nil,
-        avatarURL: String?? = nil,
-        gravatarID: String?? = nil,
-        url: String?? = nil,
-        htmlURL: String?? = nil,
-        followersURL: String?? = nil,
-        subscriptionsURL: String?? = nil,
-        organizationsURL: String?? = nil,
-        reposURL: String?? = nil,
-        receivedEventsURL: String?? = nil,
-        siteAdmin: Bool?? = nil
-    ) -> Owner {
-        return Owner(
-            login: login ?? self.login,
-            idx: idx ?? self.idx,
-            avatarURL: avatarURL ?? self.avatarURL,
-            gravatarID: gravatarID ?? self.gravatarID,
-            url: url ?? self.url,
-            htmlURL: htmlURL ?? self.htmlURL,
-            followersURL: followersURL ?? self.followersURL,
-            subscriptionsURL: subscriptionsURL ?? self.subscriptionsURL,
-            organizationsURL: organizationsURL ?? self.organizationsURL,
-            reposURL: reposURL ?? self.reposURL,
-            receivedEventsURL: receivedEventsURL ?? self.receivedEventsURL,
-            siteAdmin: siteAdmin ?? self.siteAdmin
-        )
-    }
-
     func jsonData() throws -> Data {
         return try newJSONEncoder().encode(self)
     }

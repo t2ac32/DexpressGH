@@ -61,38 +61,6 @@ extension Item {
         try self.init(data: try Data(contentsOf: url))
     }
 
-    func with(
-        idx: Int?? = nil,
-        name: String?? = nil,
-        fullName: String?? = nil,
-        owner: Owner?? = nil,
-        itemDescription: String?? = nil,
-        fork: Bool?? = nil,
-        url: String?? = nil,
-        stargazersCount: Int?? = nil,
-        watchersCount: Int?? = nil,
-        language: String?? = nil,
-        forksCount: Int?? = nil,
-        forks: Int?? = nil,
-        watchers: Int?? = nil
-    ) -> Item {
-        return Item(
-            idx: idx ?? self.idx,
-            name: name ?? self.name,
-            fullName: fullName ?? self.fullName,
-            owner: owner ?? self.owner,
-            itemDescription: itemDescription ?? self.itemDescription,
-            fork: fork ?? self.fork,
-            url: url ?? self.url,
-            stargazersCount: stargazersCount ?? self.stargazersCount,
-            watchersCount: watchersCount ?? self.watchersCount,
-            language: language ?? self.language,
-            forksCount: forksCount ?? self.forksCount,
-            forks: forks ?? self.forks,
-            watchers: watchers ?? self.watchers
-        )
-    }
-
     func jsonData() throws -> Data {
         return try newJSONEncoder().encode(self)
     }

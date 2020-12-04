@@ -45,23 +45,6 @@ extension License {
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
     }
-
-    func with(
-        key: String?? = nil,
-        name: String?? = nil,
-        spdxID: String?? = nil,
-        url: String?? = nil,
-        nodeID: String?? = nil
-    ) -> License {
-        return License(
-            key: key ?? self.key,
-            name: name ?? self.name,
-            spdxID: spdxID ?? self.spdxID,
-            url: url ?? self.url,
-            nodeID: nodeID ?? self.nodeID
-        )
-    }
-
     func jsonData() throws -> Data {
         return try newJSONEncoder().encode(self)
     }

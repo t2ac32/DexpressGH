@@ -44,19 +44,6 @@ extension Repositories {
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
     }
-
-    func with(
-        totalCount: Int?? = nil,
-        incompleteResults: Bool?? = nil,
-        items: [Item]?? = nil
-    ) -> Repositories {
-        return Repositories(
-            totalCount: totalCount ?? self.totalCount,
-            incompleteResults: incompleteResults ?? self.incompleteResults,
-            items: items ?? self.items
-        )
-    }
-
     func jsonData() throws -> Data {
         return try newJSONEncoder().encode(self)
     }
